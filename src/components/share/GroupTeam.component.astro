@@ -1,0 +1,72 @@
+---
+import type { PuestosOficina } from '@src/types/nosotros/grupoTrabajo'
+
+interface Props {
+  titulo: string;
+  oficinaPrincipal: PuestosOficina[];
+  oficinaSecundaria: PuestosOficina[] | null;
+}
+
+const { titulo, oficinaPrincipal, oficinaSecundaria } = Astro.props as Props;
+---
+
+<section class="container mx-auto my-16">
+  <h1 class="text-4xl font-extrabold text-center my-12">{titulo}</h1>
+
+  <div
+    class="grid gap-6 mt-6 pt-140"
+    style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        max-width: 1000px;
+        margin: 0 auto;
+        justify-content: center;
+      "
+  >
+    {
+      oficinaPrincipal.map((item) => (
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg w-[240px] mx-auto">
+          <img
+            src={item.fotografia.url}
+            alt={`${item.nombre_colaborador} - ${item.puesto} - Ayllus Peru`}
+            class="w-full h-72 object-cover"
+          />
+          <div class="p-4 bg-gray-100">
+            <h2 class="text-xl font-bold text-ayllus-primay">{item.puesto}</h2>
+            <hr class="border-ayllus-primay my-2" />
+            <p class="text-gray-700 font-medium">{item.nombre_colaborador}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  {
+    oficinaSecundaria && (
+      <div
+        class="grid gap-6 mt-6 pt-20"
+        style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        max-width: 1000px;
+        margin: 0 auto;
+        justify-content: center;
+      "
+      >
+        {oficinaSecundaria.map((item) => (
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg w-[240px] mx-auto">
+            <img
+              src={item.fotografia.url}
+              alt={`${item.nombre_colaborador} - ${item.puesto} - Ayllus Peru`}
+              class="w-full h-72 object-cover"
+            />
+            <div class="p-4 bg-gray-100">
+              <h2 class="text-xl font-bold text-purple-700">{item.puesto}</h2>
+              <hr class="border-purple-700 my-2" />
+              <p class="text-gray-700 font-medium">{item.nombre_colaborador}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+</section>

@@ -7,11 +7,17 @@ interface Props {
 const { title, imgUrl } = Astro.props as Props;
 ---
 <div class="relative isolate overflow-hidden bg-gray-900">
-  <img
-    src={imgUrl}
-    alt=""
-    class="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center"
-  />
+  <!-- Imagen de fondo con capa oscura -->
+  <div class="absolute inset-0 -z-10">
+    <img
+      src={imgUrl}
+      alt=""
+      class="h-full w-full object-cover object-right md:object-center"
+    />
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+  </div>
+
+  <!-- Elementos decorativos -->
   <div
     class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
     aria-hidden="true"
@@ -22,6 +28,7 @@ const { title, imgUrl } = Astro.props as Props;
     >
     </div>
   </div>
+
   <div
     class="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu"
     aria-hidden="true"
@@ -32,9 +39,9 @@ const { title, imgUrl } = Astro.props as Props;
     >
     </div>
   </div>
-  <div
-    class="mx-auto container px-6 lg:px-0 mt-40 md:mt-60 py-10"
-  >
-    <h1 class="text-white font-extrabold text-4xl">{title}</h1>
+
+  <!-- Contenido con texto -->
+  <div class="relative mx-auto container px-6 lg:px-0 mt-40 md:mt-60 py-10">
+    <h1 class="text-white font-extrabold text-4xl ">{title}</h1>
   </div>
 </div>

@@ -1,0 +1,33 @@
+---
+import type { ContenidoContenido } from '@src/types/nosotros/principiosValores'
+
+interface Props {
+  titulo: string;
+  contenido: ContenidoContenido[];
+}
+
+const { titulo, contenido } = Astro.props as Props;
+---
+
+<div class="container mx-auto px-4 sm:px-8 py-12">
+  <h2 class="py-6 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-center">{titulo}</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {
+      contenido.map((item) => (
+        <div class="p-4 sm:p-6 rounded-lg flex flex-col sm:flex-row items-start gap-4 border border-gray-200 shadow-md bg-white">
+          <img
+            src={item.logo.url}
+            alt={item.titulo}
+            class="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded"
+          />
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold text-orange-600 underline">
+              {item.titulo}
+            </h2>
+            <p class="text-gray-700 text-sm sm:text-base">{item.descripcion}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>

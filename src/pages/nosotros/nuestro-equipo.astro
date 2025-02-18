@@ -1,0 +1,31 @@
+---
+import GroupTeam from '@src/components/share/GroupTeam.component.astro'
+import HeroImage from '@src/components/share/HeroImage.component.astro'
+import Layout from '@src/layouts/Layout.astro'
+import fetchApi from '@src/lib/strapi'
+import type { GroupWorkType } from '@src/types/nosotros/grupoTrabajo'
+
+const data = await fetchApi<GroupWorkType>({
+  endpoint: 'nuestro-equipo-page',
+  query: {
+    'populate[imagen_de_la_cabecera][populate]': '*',
+    'populate[contenido][populate][puestos_oficina_superior][populate]': '*',
+    'populate[contenido][populate][puestos_oficina][populate]': '*'
+  },
+  wrappedByKey: 'data'
+});
+---
+
+<Layout>
+  <HeroImage title="Nuestro Equipo" imgUrl={data.imagen_de_la_cabecera.url} />
+
+  {
+    data.contenido.map((item) => (
+      <GroupTeam
+        titulo={item.nombre_oficina}
+        oficinaPrincipal={item.puestos_oficina_superior}
+        oficinaSecundaria={item.puestos_oficina}
+      />
+    ))
+  }
+</Layout>
