@@ -1,0 +1,98 @@
+---
+import Icon from '@src/components/share/Icon.component.astro'
+import LocationCard from '@src/components/home/LocationCard.component.astro'
+import fetchApi from '@src/lib/strapi'
+import type { DataOficina } from '@src/types/home/oficina'
+
+const data = await fetchApi<DataOficina>({
+  endpoint: 'home',
+  query: {
+    'populate[Contenido][on][ayllus-componente.oficinas-ayllus][populate][Ayacucho][populate]':
+      '*',
+    'populate[Contenido][on][ayllus-componente.oficinas-ayllus][populate][Pichari][populate]':
+      '*',
+    'populate[Contenido][on][ayllus-componente.oficinas-ayllus][populate][Kimniri][populate]':
+      '*'
+  },
+  wrappedByKey: 'data'
+})
+
+const ayacucho = data.Contenido[0].Ayacucho
+const pichari = data.Contenido[0].Pichari
+const kimbiri = data.Contenido[0].Kimniri;
+---
+
+<section class="container mx-auto px-4 mt-36 relative">
+  <div
+    class="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-6 mb-5 sm:mb-0"
+  >
+    <div class="px-0 sm:px-20 w-[20rem]">
+      <h1
+        class="text-3xl sm:text-4xl font-extrabold text-center mb-6 sm:mb-8 text-ayllus-title"
+      >
+        Nuestras Oficinas
+      </h1>
+    </div>
+    <LocationCard
+      urlImage={ayacucho.foto.url}
+      nombreLocation={ayacucho.nombre}
+      linkMaps={ayacucho.link_maps}
+      direccion={ayacucho.direccion}
+    />
+    <LocationCard
+      urlImage={pichari.foto.url}
+      nombreLocation={pichari.nombre}
+      linkMaps={pichari.link_maps}
+      direccion={pichari.direccion}
+    />
+    <LocationCard
+      urlImage={kimbiri.foto.url}
+      nombreLocation={kimbiri.nombre}
+      linkMaps={kimbiri.link_maps}
+      direccion={kimbiri.direccion}
+    />
+    <div class="w-10 hidden sm:block"></div>
+  </div>
+  <div
+    class="flex flex-col sm:flex-row items-center sm:items-stretch sm:justify-between gap-4 mb-5 sm:mb-0 bg-[#F5F2FA] pt-16 pb-10 rounded-3xl px-6 sm:px-28 sm:-translate-y-6 text-ayllus-title"
+  >
+    <div
+      class="bg-white px-8 py-4 sm:px-16 sm:py-10 rounded-3xl w-full sm:w-max flex-[2]"
+    >
+      <h2 class="text-ayllus-primay font-semibold text-xl mb-4">Horario de Atención</h2>
+      <div class="flex flex-col sm:flex-row sm:justify-between">
+        <div>
+          <p>Lunes a Viernes</p>
+          <p class="text-ayllus-title font-semibold">9:00 AM - 1:00 PM</p>
+          <p class="text-ayllus-title font-semibold">3:00 PM - 8:00 PM</p>
+        </div>
+        <div>
+          <p>Sábado</p>
+          <p class="text-ayllus-title font-semibold">9:00 AM - 1:00 PM</p>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white px-8 py-4 sm:py-10 rounded-3xl w-full sm:w-max flex-1">
+      <h2 class="text-ayllus-primay font-semibold text-xl mb-4">Teléfono</h2>
+      <p>Atención al Cliente</p>
+      <p class="text-ayllus-title font-semibold">
+        {import.meta.env.PHONE_NUMBER}
+      </p>
+    </div>
+    <div class="bg-white px-8 py-4 sm:py-10 rounded-3xl w-full sm:w-max flex-1">
+      <h2 class="text-ayllus-primay font-semibold text-xl mb-4">Síguenos</h2>
+      <p>Nuestras redes</p>
+      <p class="flex gap-4">
+        <a href="http://" target="_blank" rel="noopener noreferrer">
+          <Icon name="facebook" />
+        </a>
+        <a href="http://" target="_blank" rel="noopener noreferrer">
+          <Icon name="instagram" />
+        </a>
+        <a href="http://" target="_blank" rel="noopener noreferrer">
+          <Icon name="whatsapp" />
+        </a>
+      </p>
+    </div>
+  </div>
+</section>

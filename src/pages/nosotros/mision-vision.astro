@@ -1,0 +1,32 @@
+---
+import ContentSection from '@src/components/share/ContentSection.component.astro'
+import HeroImage from '@src/components/share/HeroImage.component.astro'
+import Layout from '@src/layouts/Layout.astro'
+import fetchApi from '@src/lib/strapi'
+import type { QuienesSomosType } from '@src/types/nosotros/quienesSomos'
+
+const data = await fetchApi<QuienesSomosType>({
+  endpoint: 'mision-y-vision-page',
+  query: {
+    'populate[contenido][populate]': '*',
+    'populate[imagen_de_la_cabecera][populate]': '*'
+  },
+  wrappedByKey: 'data'
+});
+---
+
+<Layout>
+  <HeroImage title="Misión y Visión" imgUrl={data.imagen_de_la_cabecera.url} />
+
+  {
+    data.contenido.map((section, index) => (
+      <ContentSection
+        image={section.imagen.url}
+        title={section.titulo_morado ?? ''}
+        titleSecondary={section.titulo_naranja ?? ''}
+        description={section.contenido}
+        direction={index % 2 === 0 ? 'right' : 'left'}
+      />
+    ))
+  }
+</Layout>

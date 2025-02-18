@@ -1,0 +1,119 @@
+---
+import Icon from '@src/components/share/Icon.component.astro';
+---
+
+<div class="max-w-screen-xl mx-auto px-4 my-14 relative">
+  <h1
+    class="text-3xl sm:text-4xl font-extrabold text-center mb-16 sm:mb-24 text-ayllus-title"
+  >
+    Nuestros Servicios
+  </h1>
+
+  <div class="flex flex-col sm:flex-row gap-10">
+    <div
+      class="w-full bg-purple-50 rounded-lg shadow-lg p-6 flex flex-col justify-center items-center"
+    >
+      <div class="w-max">
+        <h2
+          class="font-extrabold text-ayllus-primay mb-4 text-center text-2xl sm:text-3xl sm:text-start"
+        >
+          Créditos
+        </h2>
+
+        <div class="flex flex-col sm:flex-row sm:gap-6">
+          <div class="flex items-center justify-center mb-4">
+            <img
+              src="/home/creditos.webp"
+              alt="Imagen de créditos"
+              class="rounded-xl"
+            />
+          </div>
+          <div class="flex flex-col gap-8 sm:justify-center sm:items-start">
+            <ul class="space-y-2 text-purple-700">
+              <li
+                class="flex items-center space-x-2 font-medium text-ayllus-title"
+              >
+                <Icon name="store" className="text-ayllus-secondary" />
+                <span>Créditos para Negocios</span>
+              </li>
+              <li
+                class="flex items-center space-x-2 font-medium text-ayllus-title"
+              >
+                <Icon name="bill" className="text-ayllus-secondary" />
+                <span>Créditos de Consumo</span>
+              </li>
+              <li
+                class="flex items-center space-x-2 font-medium text-ayllus-title"
+              >
+                <Icon name="write-pencil" className="text-ayllus-secondary" />
+                <span>Bancos Comunales</span>
+              </li>
+            </ul>
+            <a
+              href="#"
+              class="bg-purple-700 w-max mx-auto sm:mx-0 text-white font-extrabold rounded-xl hover:bg-purple-800 transition px-6 py-4"
+            >
+              Ver más
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="w-full bg-purple-50 rounded-lg shadow-lg p-6 flex flex-col justify-center items-center"
+    >
+      <div class="w-max">
+        <h2
+          class="font-extrabold text-ayllus-primay mb-4 text-center text-2xl sm:text-3xl sm:text-start"
+        >
+          Ahorros
+        </h2>
+
+        <div class="flex flex-col sm:flex-row sm:gap-6">
+          <div class="flex items-center justify-center mb-4">
+            <img
+              src="/home/ahorros.webp"
+              alt="Imagen de créditos"
+              class="rounded-xl"
+            />
+          </div>
+          <div class="flex flex-col gap-8 sm:justify-center sm:items-start">
+            <ul class="space-y-2 text-purple-700">
+              <li
+                class="flex items-center space-x-2 font-medium text-ayllus-title"
+              >
+                <Icon name="savings-line" className="text-ayllus-secondary" />
+                <span>Ahorro Libre</span>
+              </li>
+              <li
+                class="flex items-center space-x-2 font-medium text-ayllus-title"
+              >
+                <Icon name="money-bills" className="text-ayllus-secondary" />
+                <span>Plazo Fijo</span>
+              </li>
+              <li
+                class="flex items-center space-x-2 font-medium text-ayllus-title"
+              >
+                <Icon name="credit-card" className="text-ayllus-secondary" />
+                <span>Ahorro Programado</span>
+              </li>
+              <li
+                class="flex items-center space-x-2 font-medium text-ayllus-title"
+              >
+                <Icon name="fa6-solid:children" className="text-ayllus-secondary" />
+                <span>Cuenta Wawakuna</span>
+              </li>
+            </ul>
+            <a
+              href="#"
+              class="bg-purple-700 w-max mx-auto sm:mx-0 text-white font-extrabold rounded-xl hover:bg-purple-800 transition px-6 py-4"
+            >
+              Ver más
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

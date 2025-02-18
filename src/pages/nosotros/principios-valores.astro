@@ -1,0 +1,78 @@
+---
+import HeroImage from '@src/components/share/HeroImage.component.astro'
+import Layout from '@src/layouts/Layout.astro'
+import fetchApi from '@src/lib/strapi'
+import type { PrincipiosValoresType } from '@src/types/nosotros/principiosValores'
+
+const data = await fetchApi<PrincipiosValoresType>({
+  endpoint: 'principios-valores-page',
+  query: {
+    'populate[contenido][populate][contenido][populate]': '*',
+    'populate[imagen_de_la_cabecera][populate]': '*'
+  },
+  wrappedByKey: 'data'
+});
+---
+
+<Layout>
+  <HeroImage title="Nuestra Historia" imgUrl={data.imagen_de_la_cabecera.url} />
+
+  <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <!-- Adhesión abierta y voluntaria -->
+    <div class="bg-white p-6 shadow-md rounded-lg flex items-start gap-4">
+      <img src="icono1.png" alt="Icono 1" class="w-12 h-12" />
+      <div>
+        <h2 class="text-xl font-bold text-orange-600">
+          Adhesión abierta y voluntaria:
+        </h2>
+        <p class="text-gray-700">
+          Una organización voluntaria abierta a todos, sin discriminación de
+          género, raza, clase social, política o religión, para quienes acepten
+          las responsabilidades de la membresía.
+        </p>
+      </div>
+    </div>
+
+    <!-- Autonomía e independencia -->
+    <div class="bg-white p-6 shadow-md rounded-lg flex items-start gap-4">
+      <img src="icono2.png" alt="Icono 2" class="w-12 h-12" />
+      <div>
+        <h2 class="text-xl font-bold text-orange-600">
+          Autonomía e independencia:
+        </h2>
+        <p class="text-gray-700">
+          La Cooperativa es una organización autónoma de ayuda mutua, gestionada
+          por sus miembros.
+        </p>
+      </div>
+    </div>
+
+    <!-- Control democrático de sus miembros -->
+    <div class="bg-white p-6 shadow-md rounded-lg flex items-start gap-4">
+      <img src="icono3.png" alt="Icono 3" class="w-12 h-12" />
+      <div>
+        <h2 class="text-xl font-bold text-orange-600">
+          Control democrático de sus miembros:
+        </h2>
+        <p class="text-gray-700">
+          Una organización democrática controlada por sus miembros, con
+          participación activa en políticas y decisiones.
+        </p>
+      </div>
+    </div>
+
+    <!-- Educación, entrenamiento e información -->
+    <div class="bg-white p-6 shadow-md rounded-lg flex items-start gap-4">
+      <img src="icono4.png" alt="Icono 4" class="w-12 h-12" />
+      <div>
+        <h2 class="text-xl font-bold text-orange-600">
+          Educación, entrenamiento e información:
+        </h2>
+        <p class="text-gray-700">
+          La Cooperativa ofrece educación y entrenamiento a socios, dirigentes,
+          funcionarios y empleados para contribuir eficazmente a su desarrollo.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>

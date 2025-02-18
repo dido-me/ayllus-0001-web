@@ -1,0 +1,193 @@
+---
+import { MAIN_NAV } from '@src/constants/mapsite.const'
+import Icon from '@src/components/share/Icon.component.astro'
+import AcordionNavbar from '@src/components/share/AcordionNavbar.component.astro';
+---
+
+<header id="header" class="fixed top-8 left-0 w-full z-40">
+  <nav id="navbar" class="md:container w-[90%] flex flex-col mx-auto">
+    <ul class="flex justify-end items-center text-white">
+      <li dir="ltr">
+        <a
+          href="/creditos"
+          class="bg-[#470068] text-white text-xs sm:text-[1rem] px-8 py-1.5 rounded-s-xl border-2 border-transparent hover:border-ayllus-secondary hover:bg-ayllus-secondary transition duration-300 ease-in-out"
+        >
+          Créditos
+        </a>
+      </li>
+      <li dir="rtl">
+        <a
+          href="/ahorros"
+          class="bg-ayllus-primay text-white text-xs sm:text-[1rem] px-8 py-1.5 rounded-s-xl border-2 border-transparent hover:border-ayllus-secondary hover:bg-ayllus-secondary transition duration-300 ease-in-out"
+        >
+          Ahorros
+        </a>
+      </li>
+    </ul>
+    <div
+      id="nav-items"
+      class="w-full px-10 py-5 bg-slate-200 rounded-tl-xl rounded-bl-xl rounded-br-xl flex justify-between items-center"
+    >
+      <div class="flex gap-4">
+        <a href="/">
+          <img
+            src="/logo/isotipo_black.webp"
+            alt="Isotipo"
+            id="isotipo"
+            class="w-12 md:w-auto"
+          />
+        </a>
+        <a href="/">
+          <img
+            src="/logo/logo_black.webp"
+            alt="Logo"
+            id="logo_ayllus"
+            class="hidden xl:block"
+          />
+        </a>
+      </div>
+      <ul
+        id="nav-items"
+        class="lg:space-x-12 2xl:space-x-16 xl:flex hidden relative font-semibold"
+      >
+        {
+          MAIN_NAV.map((item) => (
+            <li class="group relative inline-block my-auto">
+              <a
+                href={item.url}
+                class="flex items-center group-hover:text-ayllus-primary hover:text-ayllus-primary"
+              >
+                {item.name}
+                {item.sub_menu && item.sub_menu.length > 0 && (
+                  <Icon
+                    name="material-symbols-light:keyboard-arrow-down"
+                    className="w-5 h-5"
+                  />
+                )}
+              </a>
+
+              {item.sub_menu && item.sub_menu.length > 0 && (
+                <div class="absolute hidden group-hover:block bg-white shadow-lg py-2 w-48 z-10 left-1/2 transform -translate-x-1/2 rounded-xl">
+                  {item.sub_menu.map((subItem, index) => (
+                    <a
+                      href={subItem.url}
+                      class={`block px-4 py-2 text-gray-800 hover:bg-gray-200 ${index !== 0 && 'border-t-2 border-ayllus-primary'}`}
+                    >
+                      {subItem.name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </li>
+          ))
+        }
+
+        <li>
+          <a
+            href="#"
+            class="inline-block bg-ayllus-primay text-white py-2 px-4 rounded-lg hover:bg-ayllus-primay text-sm sm:text-base font-bold"
+            >Contáctanos</a
+          >
+
+        </li>
+
+      </ul>
+      <div
+            class="xl:hidden flex justify-end ml-8 mt-1 cursor-pointer"
+            id="hamburger-navbar"
+          >
+            <div class="hover:cursor-pointer">
+              <spnan class="h-1 rounded-full block w-8 mb-1 bg-ayllus-primay"
+              ></spnan>
+              <spnan class="h-1 rounded-full block w-8 mb-1 bg-ayllus-secondary"
+              ></spnan>
+              <spnan class="h-1 rounded-full block w-8 mb-1 bg-ayllus-primay"
+              ></spnan>
+            </div>
+          </div>
+    </div>
+  </nav>
+</header>
+
+<div
+  id="modal"
+  class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center"
+>
+  <div class="bg-white p-8 shadow-lg w-full min-h-svh flex flex-col gap-2">
+    <div class="flex justify-between w-full mb-8">
+      <a href="/">
+        <img
+          src="/logo/isotipo_black.webp"
+          alt="Isotipo"
+          id="isotipo"
+          width="60"
+          height="60"
+        />
+      </a>
+
+      <button id="closeModal" class="text-ayllus-secondary">
+        <Icon
+          name="material-symbols:close-rounded"
+          className="w-10 h-10"
+        />
+      </button>
+    </div>
+
+    {
+      MAIN_NAV.map((item) => (
+        <AcordionNavbar
+          title={item.name}
+          url={item.url}
+          subMenu={item.sub_menu}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .scrolled {
+    background-color: white;
+    box-shadow: 10px 32px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-scrolled {
+    color: #7406a7 !important;
+  }
+
+  .bg-gradient-header {
+    background: linear-gradient(to bottom, #3f0099 -100%, transparent 100%);
+  }
+</style>
+
+<script>
+const hamburger = document.getElementById(
+  'hamburger-navbar'
+) as HTMLDivElement
+const modal = document.getElementById('modal') as HTMLDivElement
+const closeModal = document.getElementById('closeModal') as HTMLButtonElement
+
+hamburger.addEventListener('click', () => {
+  modal.classList.remove('hidden')
+  document.body.classList.add('modal-open')
+  modal.classList.add('animate-jump-out', 'animate-once', 'animate-reverse')
+
+  setTimeout(() => {
+    modal.classList.remove(
+      'animate-jump-out',
+      'animate-once',
+      'animate-reverse'
+    )
+  }, 800)
+})
+
+closeModal.addEventListener('click', () => {
+  modal.classList.add('animate-jump-out', 'animate-once')
+
+  setTimeout(() => {
+    modal.classList.add('hidden')
+    modal.classList.remove('animate-jump-out', 'animate-once')
+    document.body.classList.remove('modal-open')
+  }, 800)
+})
+</script>

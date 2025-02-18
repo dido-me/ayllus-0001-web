@@ -1,0 +1,117 @@
+---
+import Icon from '@src/components/share/Icon.component.astro'
+import { MAIN_NAV } from '@src/constants/mapsite.const';
+---
+
+<footer class="footer-1 bg-ayllus-primay text-white py-8 sm:py-12">
+    <div class="container mx-auto px-4">
+        <div class="sm:flex sm:flex-wrap sm:-mx-4 md:py-4">
+            {
+                MAIN_NAV.slice(0, 2).map((nav) => (
+                    <div class="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 sm:mt-0">
+                        <h5 class="text-xl font-bold mb-6">{nav.name}</h5>
+                        <ul class="list-none footer-links">
+                            {nav.sub_menu && nav.sub_menu.map((sub) => (
+                                <li class="mb-2">
+                                    <a
+                                        href={sub.url}
+                                        class="border-b border-solid border-transparent hover:text-ayllus-secondary"
+                                    >
+                                        {sub.name}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))
+            }
+
+            <ul class="list-none footer-links flex flex-col justify-around px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 sm:mt-0">
+                <li>
+                    <a
+                        href="/transparencia"
+                        class="border-b text-xl font-bold border-solid border-transparent hover:text-ayllus-secondary"
+                    >
+                        Transparencia
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="/canales-de-atencion"
+                        class="border-b text-xl font-bold border-solid border-transparent hover:text-ayllus-secondary"
+                    >
+                        Canales de atención
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="/creditos"
+                        class="border-b text-xl font-bold border-solid border-transparent hover:text-ayllus-secondary"
+                    >
+                        Créditos
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="/ahorros"
+                        class="border-b text-xl font-bold border-solid border-transparent hover:text-ayllus-secondary"
+                    >
+                        Ahorros
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="/publicaciones"
+                        class="border-b text-xl font-bold border-solid border-transparent hover:text-ayllus-secondary"
+                    >
+                        Publicaciones
+                    </a>
+                </li>
+            </ul>
+
+            <div
+                class="px-4 mt-4 sm:w-1/3 xl:w-1/6 sm:mx-auto xl:mt-0 xl:ml-auto"
+            >
+                <h5 class="text-lg font-bold mb-6 sm:text-center xl:text-left">
+                    Libro de Reclamaciones
+                </h5>
+                <div class="flex sm:justify-center xl:justify-start">
+                    <a href="/reclamo" class="hover:text-ayllus-secondary">
+                        <Icon name='solar:book-2-bold' className='w-16 h-16'/>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="sm:flex sm:flex-wrap sm:-mx-4 mt-6 pt-6 sm:mt-12 sm:pt-12 border-t"
+        >
+            <p class="text-justify">
+                Nuestros productos y servicios están sujetos a calificación,
+                admisión y aprobación. Se aplican restricciones. Las tasas,
+                comisiones, gastos y características de los productos y
+                servicios diferentes a la presente campaña se detallan en
+                nuestra página web www.cac-ayllusperu.pe y en la Plataforma de Atención,
+                a través del tarifario. Para acceder a los productos y
+                servicios, usted debe ser socio de Cooperativa de Ahorro y
+                Crédito Abaco, con RUC N° 20101091083. Solicite más información
+                y consulte los requisitos de afiliación vía el 611-1600 o
+                nuestra página web. No captamos recursos del público, sólo
+                operamos y captamos recursos de nuestros socios. Nos encontramos
+                inscritos en el Registro Nacional de COOPAC, con el Registro N°
+                002-2019-REG.COOPAC-SBS. Nos encontramos incorporados al Fondo
+                de Seguro de Depósitos Cooperativo (FSDC); los depósitos de
+                nuestros socios no se encuentran cubiertos por el FSDC, hasta
+                dar cumplimiento a lo dispuesto por el artículo 5 de la
+                Resolución SBS N° 5061-2018. Estamos regulados por la
+                Superintendencia de Banca, Seguros y AFP (SBS) y supervisados
+                por Superintendencia Adjunta de Cooperativas (SACOOP).
+                Información difundida según lo indicado en la Vigésimo Cuarta
+                Disposición Final y Complementaria de la Ley N° 26702,
+                modificada por Ley N° 30822, la Resolución SBS N° 0480-2019, la
+                Resolución SBS N° 3274-2017 y sus modificatorias, conforme a la
+                normatividad vigente.
+            </p>
+        </div>
+    </div>
+</footer>

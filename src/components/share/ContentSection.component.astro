@@ -1,0 +1,58 @@
+---
+interface Props {
+  image: string;
+  title?: string;
+  titleSecondary?: string;
+  direction?: 'left' | 'right';
+  description: string;
+}
+
+const {
+  image,
+  title,
+  direction = 'left',
+  description,
+  titleSecondary
+} = Astro.props as Props;
+---
+
+<div class="py-16">
+  <div
+    class="container mx-auto px-6 py-8 rounded-3xl text-gray-600 md:px-12 xl:px-6"
+  >
+    <div class="flex flex-col-reverse md:flex-row gap-6 lg:gap-12 items-center">
+      <div
+        class={`md:w-5/12 lg:w-6/12 flex justify-center ${direction === 'left' ? 'md:order-1' : 'md:order-2'}`}
+      >
+        <img
+          src={image}
+          alt={title}
+          class="w-2/3 h-auto max-w-md md:max-w-full rounded-xl object-cover"
+        />
+      </div>
+      <div
+        class={`md:w-7/12 lg:w-6/12 py-8 ${direction === 'left' ? 'md:order-2' : 'md:order-1'}`}
+      >
+        {
+          titleSecondary && (
+            <h3 class="text-xl bg-ayllus-primary max-w-max py-2 rounded-full font-semibold md:text-5xl text-ayllus-secondary">
+              {titleSecondary}
+            </h3>
+          )
+        }
+
+        {
+          title && (
+            <h2 class="text-3xl font-bold md:text-4xl text-ayllus-primay mt-4">
+              {title}
+            </h2>
+          )
+        }
+
+        <p class="py-6 text-lg md:text-2xl leading-relaxed">
+          {description}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
