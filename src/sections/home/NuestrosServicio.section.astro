@@ -1,5 +1,19 @@
 ---
-import Icon from '@src/components/share/Icon.component.astro';
+import Icon from '@src/components/share/Icon.component.astro'
+import fetchApi from '@src/lib/strapi'
+import type { NuestroServiciosType } from '@src/types/home/nuestroServicios'
+
+const data = await fetchApi<NuestroServiciosType>({
+  endpoint: 'home',
+  query: {
+    'populate[Contenido][on][ayllus-componente.nuestro-servicios-component][populate]':
+      '*'
+  },
+  wrappedByKey: 'data'
+})
+
+const dataNuestroServicio = data.Contenido[0]
+
 ---
 
 <div class="max-w-screen-xl mx-auto px-4 my-14 relative">
@@ -23,9 +37,9 @@ import Icon from '@src/components/share/Icon.component.astro';
         <div class="flex flex-col sm:flex-row sm:gap-6">
           <div class="flex items-center justify-center mb-4">
             <img
-              src="/home/creditos.webp"
-              alt="Imagen de créditos"
-              class="rounded-xl"
+              src={dataNuestroServicio.credito_imagen.url}
+              alt="Imagen de créditos - Ayllus Peru"
+              class="w-full max-w-[221px] h-auto rounded-xl"
             />
           </div>
           <div class="flex flex-col gap-8 sm:justify-center sm:items-start">
@@ -73,9 +87,9 @@ import Icon from '@src/components/share/Icon.component.astro';
         <div class="flex flex-col sm:flex-row sm:gap-6">
           <div class="flex items-center justify-center mb-4">
             <img
-              src="/home/ahorros.webp"
-              alt="Imagen de créditos"
-              class="rounded-xl"
+              src={dataNuestroServicio.ahorros_imagen.url}
+              alt="Imagen de créditos - Ayllus Peru"
+              class="w-full max-w-[221px] h-auto rounded-xl"
             />
           </div>
           <div class="flex flex-col gap-8 sm:justify-center sm:items-start">
@@ -101,7 +115,10 @@ import Icon from '@src/components/share/Icon.component.astro';
               <li
                 class="flex items-center space-x-2 font-medium text-ayllus-title"
               >
-                <Icon name="fa6-solid:children" className="text-ayllus-secondary" />
+                <Icon
+                  name="fa6-solid:children"
+                  className="text-ayllus-secondary"
+                />
                 <span>Cuenta Wawakuna</span>
               </li>
             </ul>
