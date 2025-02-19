@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'ayllus-primay': '#7406A7',
+        'ayllus-primary': '#7406A7',
         'ayllus-secondary': '#FF7C2C',
         'ayllus-text': '#3E3D5D',
         'ayllus-title': '#0E0D35'
