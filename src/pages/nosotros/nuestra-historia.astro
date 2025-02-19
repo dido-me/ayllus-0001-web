@@ -23,6 +23,7 @@ const data = await fetchApi<QuienesSomosType>({
       <ContentSection
         image={section.imagen.url}
         title={section.titulo_morado ?? ''}
+        titleSecondary={section.titulo_naranja ?? ''}
         description={section.contenido}
         direction={index % 2 === 0 ? 'right' : 'left'}
       />

@@ -1,0 +1,103 @@
+---
+import HeroImage from '@src/components/share/HeroImage.component.astro'
+import Icon from '@src/components/share/Icon.component.astro'
+import TitlePage from '@src/components/socios/TitlePage.component.astro'
+import Layout from '@src/layouts/Layout.astro'
+import fetchApi from '@src/lib/strapi'
+import type { RightsObligationsType } from '@src/types/socios/ObligacionesDerechosPage'
+
+const data = await fetchApi<RightsObligationsType>({
+  endpoint: 'beneficios-page',
+  query: {
+    'populate[imagen_de_la_cabecera][populate]': '*',
+    'populate[contenido][populate]': '*'
+  },
+  wrappedByKey: 'data'
+})
+
+const titlesForPage = {
+  tituloNaranja: 'Ser parte de la cooperativa tiene sus ventajas',
+  tituloNegro: 'Beneficios para Nuestros Socios',
+  tituloMorado:
+    'Disfruta de exclusivos beneficios que impulsan tu bienestar financiero y contribuyen al desarrollo de nuestra comunidad'
+};
+---
+
+<Layout title="Beneficios">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.min.css"
+    />
+  </head>
+  <HeroImage
+    title="Beneficios"
+    imgUrl={data.imagen_de_la_cabecera.url}
+  />
+
+  <TitlePage {...titlesForPage} />
+
+  <div class="container mx-auto mb-20">
+    <div class="border-b border-gray-200 dark:border-gray-700 mb-4">
+      <ul
+        class="flex flex-wrap justify-center -mb-px"
+        id="myTab"
+        data-tabs-toggle="#myTabContent"
+        role="tablist"
+      >
+        {
+          data.contenido.map((item, index) => (
+            <li class="mr-2" role="presentation">
+              <button
+                class={`inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300 ${index === 0 ? 'active' : ''}`}
+                id={`dashboard-${item.id}-tab`}
+                data-tabs-target={`#dashboard-${item.id}`}
+                type="button"
+                role="tab"
+                aria-controls={`dashboard-${item.id}`}
+                aria-selected={index === 0 ? 'true' : 'false'}
+              >
+                {item.titulo}
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div id="myTabContent">
+      {
+        data.contenido.map((item, index) => (
+          <div
+            class={`p-4 rounded-lg ${index === 0 ? '' : 'hidden'}`}
+            id={`dashboard-${item.id}`}
+            role="tabpanel"
+            aria-labelledby={`dashboard-${item.id}-tab`}
+          >
+            <ul class="px-10 md:px-6 sm:px-4 space-y-10">
+              {item.contenido.map((item) => (
+                <li class="flex items-start gap-3 sm:gap-2">
+                  <Icon
+                    name="material-symbols:check"
+                    className="text-ayllus-secondary w-8 h-8 sm:w-6 sm:h-6"
+                  />
+                  <span class="text-lg md:text-xl leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <script
+    src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"
+  ></script>
+</Layout>
+
+<style>
+  .active {
+    color: #7406a7 !important;
+    border-color: #7406a7 !important;
+  }
+</style>

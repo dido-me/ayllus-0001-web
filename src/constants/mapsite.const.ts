@@ -50,15 +50,11 @@ export const MAIN_NAV = [
       },
       {
         name: 'Derechos y obligaciones',
-        url: '#'
+        url: '/socios/derechos-obligaciones'
       },
       {
         name: 'Beneficios',
-        url: '#'
-      },
-      {
-        name: 'Fondo de previsión social',
-        url: '#'
+        url: '/socios/beneficios'
       }
     ]
   },

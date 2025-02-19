@@ -1,0 +1,51 @@
+---
+import ContentSection from '@src/components/share/ContentSection.component.astro'
+import HeroImage from '@src/components/share/HeroImage.component.astro'
+import TitlePage from '@src/components/socios/TitlePage.component.astro'
+import Layout from '@src/layouts/Layout.astro'
+import fetchApi from '@src/lib/strapi'
+import type { QuienesSomosType } from '@src/types/nosotros/quienesSomos'
+
+const data = await fetchApi<QuienesSomosType>({
+  endpoint: 'aportaciones-page',
+  query: {
+    'populate[imagen_de_la_cabecera][populate]': '*',
+    'populate[contenido][populate]': '*'
+  },
+  wrappedByKey: 'data'
+})
+
+const titlesForPage = {
+  tituloNaranja: 'Juntos construimos un futuro mejor',
+  tituloNegro: 'Aportaciones de nuestros socios',
+  tituloMorado:
+    'Con tus aportaciones, fortalecemos el crecimiento de nuestra cooperativa y generamos más oportunidades para todos.'
+};
+---
+
+<Layout title="Aportaciones">
+  <HeroImage title="Aportaciones" imgUrl={data.imagen_de_la_cabecera.url} />
+
+  <TitlePage {...titlesForPage} />
+
+  {
+    data.contenido.map((section, index) => (
+      <ContentSection
+        image={section.imagen.url}
+        title={section.titulo_morado ?? ''}
+        titleSecondary={section.titulo_naranja ?? ''}
+        description={section.contenido}
+        direction={index % 2 === 0 ? 'left' : 'right'}
+      />
+    ))
+  }
+
+<div class="container flex justify-center my-10 mx-auto">
+    <a
+      href="#"
+      class="lg:text-sm 2xl:text-xl bg-ayllus-primay text-white py-2 px-4 rounded-lg hover:bg-ayllus-secondary sm:text-base font-bold"
+    >
+      Contáctanos
+    </a>
+  </div>
+</Layout>

@@ -1,0 +1,40 @@
+---
+import HeroImage from '@src/components/share/HeroImage.component.astro'
+import RequiredContent from '@src/components/socios/RequiredContent.component.astro'
+import TitlePage from '@src/components/socios/TitlePage.component.astro'
+import Layout from '@src/layouts/Layout.astro'
+import fetchApi from '@src/lib/strapi'
+import type { RequiredPageType } from '@src/types/socios/requisitosPage'
+
+const data = await fetchApi<RequiredPageType>({
+  endpoint: 'asociate-page',
+  query: {
+    'populate[imagen_de_la_cabecera][populate]': '*',
+    'populate[contenido][populate]': '*'
+  },
+  wrappedByKey: 'data'
+})
+
+const titlesForPage = {
+  tituloNaranja: '¡Forma parte de nuestra gran familia!',
+  tituloNegro: 'Requisitos para ser socio',
+  tituloMorado:
+    'Podrán ser socios de la cooperativa tanto personas naturales y jurídicas que cumplan con los siguientes requisitos'
+};
+---
+
+<Layout title="Asóciate">
+  <HeroImage title="Asóciate" imgUrl={data.imagen_de_la_cabecera.url} />
+
+  <TitlePage {...titlesForPage} />
+
+  {
+    data.contenido.map((content) => (
+      <RequiredContent
+        titulo={content.titulo}
+        listaRequisitos={content.lista_requerimientos}
+        urlImage={content.imagen.url}
+      />
+    ))
+  }
+</Layout>

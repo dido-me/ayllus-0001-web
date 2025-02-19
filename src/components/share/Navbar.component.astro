@@ -4,13 +4,13 @@ import Icon from '@src/components/share/Icon.component.astro'
 import AcordionNavbar from '@src/components/share/AcordionNavbar.component.astro';
 ---
 
-<header id="header" class="fixed top-8 left-0 w-full z-40">
+<header id="header" class="fixed top-4 left-0 w-full z-40">
   <nav id="navbar" class="md:container w-[90%] flex flex-col mx-auto">
     <ul class="flex justify-end items-center text-white">
       <li dir="ltr">
         <a
           href="/creditos"
-          class="bg-[#470068] text-white text-xs sm:text-lg px-8 py-1.5 rounded-s-xl border-2 border-transparent hover:border-ayllus-secondary hover:bg-ayllus-secondary transition duration-300 ease-in-out"
+          class="bg-[#470068] text-white text-xs lg:text-base 2xl:text-lg px-8 py-1.5 rounded-s-xl border-2 border-transparent hover:border-ayllus-secondary hover:bg-ayllus-secondary transition duration-300 ease-in-out"
         >
           Créditos
         </a>
@@ -18,7 +18,7 @@ import AcordionNavbar from '@src/components/share/AcordionNavbar.component.astro
       <li dir="rtl">
         <a
           href="/ahorros"
-          class="bg-ayllus-primay text-white text-xs sm:text-lg px-8 py-1.5 rounded-s-xl border-2 border-transparent hover:border-ayllus-secondary hover:bg-ayllus-secondary transition duration-300 ease-in-out"
+          class="bg-ayllus-primay text-white text-xs lg:text-base 2xl:text-lg px-8 py-1.5 rounded-s-xl border-2 border-transparent hover:border-ayllus-secondary hover:bg-ayllus-secondary transition duration-300 ease-in-out"
         >
           Ahorros
         </a>
@@ -26,15 +26,15 @@ import AcordionNavbar from '@src/components/share/AcordionNavbar.component.astro
     </ul>
     <div
       id="nav-items"
-      class="w-full px-10 py-5 bg-slate-200 rounded-tl-xl rounded-bl-xl rounded-br-xl flex justify-between items-center"
+      class="w-full px-10 lg:py-2 2xl:py-3 bg-slate-200 rounded-tl-xl rounded-bl-xl rounded-br-xl flex justify-between items-center"
     >
-      <div class="flex gap-4">
+      <div class="flex gap-4 items-center">
         <a href="/">
           <img
             src="/logo/isotipo_black.webp"
             alt="Isotipo"
             id="isotipo"
-            class="w-12 md:w-auto"
+            class="w-12 lg:w-10 2xl:w-auto"
           />
         </a>
         <a href="/">
@@ -42,20 +42,20 @@ import AcordionNavbar from '@src/components/share/AcordionNavbar.component.astro
             src="/logo/logo_black.webp"
             alt="Logo"
             id="logo_ayllus"
-            class="hidden xl:block"
+            class="hidden xl:block lg:w-28 2xl:w-auto"
           />
         </a>
       </div>
       <ul
         id="nav-items"
-        class="lg:space-x-12 2xl:space-x-16 xl:flex hidden relative font-semibold"
+        class="lg:space-x-10 2xl:space-x-16 xl:flex hidden relative font-semibold"
       >
         {
           MAIN_NAV.map((item) => (
             <li class="group relative inline-block my-auto">
               <a
                 href={item.url}
-                class="flex text-xl items-center group-hover:text-ayllus-primary hover:text-ayllus-primary"
+                class="flex lg:text-sm 2xl:text-xl items-center group-hover:text-ayllus-primary hover:text-ayllus-primary"
               >
                 {item.name}
                 {item.sub_menu && item.sub_menu.length > 0 && (
@@ -85,7 +85,7 @@ import AcordionNavbar from '@src/components/share/AcordionNavbar.component.astro
         <li>
           <a
             href="#"
-            class="inline-block text-xl bg-ayllus-primay text-white py-2 px-4 rounded-lg hover:bg-ayllus-primay  sm:text-base font-bold"
+            class="inline-block lg:text-sm 2xl:text-xl bg-ayllus-primay hover:bg-ayllus-secondary text-white py-2 px-4 rounded-lg hover:bg-ayllus-primay  sm:text-base font-bold"
             >Contáctanos</a
           >
 
@@ -97,12 +97,12 @@ import AcordionNavbar from '@src/components/share/AcordionNavbar.component.astro
             id="hamburger-navbar"
           >
             <div class="hover:cursor-pointer">
-              <spnan class="h-1 rounded-full block w-8 mb-1 bg-ayllus-primay"
-              ></spnan>
-              <spnan class="h-1 rounded-full block w-8 mb-1 bg-ayllus-secondary"
-              ></spnan>
-              <spnan class="h-1 rounded-full block w-8 mb-1 bg-ayllus-primay"
-              ></spnan>
+              <span class="h-1 rounded-full block w-8 mb-1 bg-ayllus-primay"
+              ></span>
+              <span class="h-1 rounded-full block w-8 mb-1 bg-ayllus-secondary"
+              ></span>
+              <span class="h-1 rounded-full block w-8 mb-1 bg-ayllus-primay"
+              ></span>
             </div>
           </div>
     </div>

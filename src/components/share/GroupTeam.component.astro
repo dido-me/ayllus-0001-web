@@ -25,7 +25,7 @@ const { titulo, oficinaPrincipal, oficinaSecundaria } = Astro.props as Props;
   >
     {
       oficinaPrincipal.map((item) => (
-        <div class="bg-white rounded-xl overflow-hidden shadow-lg w-[240px] mx-auto">
+        <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg w-[240px] mx-auto">
           <img
             src={item.fotografia.url}
             alt={`${item.nombre_colaborador} - ${item.puesto} - Ayllus Peru`}
@@ -53,7 +53,7 @@ const { titulo, oficinaPrincipal, oficinaSecundaria } = Astro.props as Props;
       "
       >
         {oficinaSecundaria.map((item) => (
-          <div class="bg-white rounded-xl overflow-hidden shadow-lg w-[240px] mx-auto">
+          <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg w-[240px] mx-auto">
             <img
               src={item.fotografia.url}
               alt={`${item.nombre_colaborador} - ${item.puesto} - Ayllus Peru`}
