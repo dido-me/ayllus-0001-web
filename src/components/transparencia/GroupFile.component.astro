@@ -1,0 +1,45 @@
+---
+import type { ImagenDeLaCabecera } from '@src/types/transparencia/transparencyType'
+import Icon from '@src/components/share/Icon.component.astro'
+
+interface Props {
+  titulo: string;
+  description: string;
+  archivos: ImagenDeLaCabecera[];
+}
+
+const { titulo, description, archivos } = Astro.props as Props;
+---
+
+<section class="container mx-auto px-4 md:px-8 py-8">
+  <h1 class="text-3xl md:text-4xl font-extrabold">{titulo}</h1>
+
+  <p class="text-base mt-2">
+    {description}
+  </p>
+
+  <ul class="mt-6 space-y-4">
+    {
+      archivos.map((item) => (
+        <li class="w-max">
+          <a
+            href={item.url}
+            class="flex items-center p-4 hover:bg-gray-100 transition-colors duration-200 rounded-lg group"
+            target="_blank"
+            download
+          >
+            <Icon
+              name="cuida:document-text-outline"
+              className="w-8 h-8 mr-3 text-ayllus-primay"
+            />
+            <span class="text-lg font-medium">{item.name}</span>
+            <Icon
+              name="material-symbols:download-2-rounded"
+              className="w-6 h-6 ml-2 text-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+            />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

@@ -1,10 +1,10 @@
 ---
 import HeroImage from '@src/components/share/HeroImage.component.astro'
 import Icon from '@src/components/share/Icon.component.astro'
-import TitlePage from '@src/components/socios/TitlePage.component.astro'
+import TitlePage from '@src/components/share/TitlePage.component.astro'
 import Layout from '@src/layouts/Layout.astro'
 import fetchApi from '@src/lib/strapi'
-import type { RightsObligationsType } from '@src/types/socios/ObligacionesDerechosPage'
+import type { RightsObligationsType } from '@src/types/socios/obligacionesDerechosPage'
 
 const data = await fetchApi<RightsObligationsType>({
   endpoint: 'derechos-obligaciones-page',

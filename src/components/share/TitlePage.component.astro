@@ -1,6 +1,6 @@
 ---
 interface Props {
-  tituloNaranja: string;
+  tituloNaranja?: string;
   tituloNegro: string;
   tituloMorado: string;
 }
@@ -11,9 +11,13 @@ const { tituloNaranja, tituloNegro, tituloMorado } = Astro.props as Props;
 <section
   class="container mx-auto flex flex-col items-center justify-center py-8 sm:py-12 text-center px-4"
 >
-  <h4 class="text-xs sm:text-sm font-semibold text-ayllus-secondary">
-    {tituloNaranja}
-  </h4>
+  {
+    tituloNaranja && (
+      <h4 class="text-xs sm:text-sm font-semibold text-ayllus-secondary">
+        {tituloNaranja}
+      </h4>
+    )
+  }
   <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold w-full max-w-lg">
     {tituloNegro}
   </h2>

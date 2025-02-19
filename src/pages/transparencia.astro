@@ -1,0 +1,39 @@
+---
+import HeroImage from '@src/components/share/HeroImage.component.astro'
+import TitlePage from '@src/components/share/TitlePage.component.astro'
+import GroupFile from '@src/components/transparencia/GroupFile.component.astro'
+import Layout from '@src/layouts/Layout.astro'
+import fetchApi from '@src/lib/strapi'
+import type { TransparencyType } from '@src/types/transparencia/transparencyType'
+
+const data = await fetchApi<TransparencyType>({
+  endpoint: 'transparencia-page',
+  query: {
+    'populate[imagen_de_la_cabecera][populate]': '*',
+    'populate[contenido][populate]': '*'
+  },
+  wrappedByKey: 'data'
+})
+
+const titlesForPage = {
+  tituloNegro: 'Comprometidos con la Transparencia',
+  tituloMorado:
+    'Accede a documentos importantes y descargables para tu consulta'
+};
+---
+
+<Layout title="Transparencia">
+  <HeroImage title="Transparencia" imgUrl={data.imagen_de_la_cabecera.url} />
+
+  <TitlePage {...titlesForPage} />
+
+  {
+    data.contenido.map((item) => (
+      <GroupFile
+        titulo={item.titulo}
+        description={item.descripcion}
+        archivos={item.archivos}
+      />
+    ))
+  }
+</Layout>
