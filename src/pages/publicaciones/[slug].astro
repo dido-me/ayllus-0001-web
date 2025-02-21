@@ -4,6 +4,7 @@ import { SEO } from 'astro-seo'
 import fetchApi from '@src/lib/strapi'
 import type { PublicacionContenidoType } from '@src/types/publicaciones/publicacionContenido'
 import Icon from '@src/components/share/Icon.component.astro'
+import HeroImage from '@src/components/share/HeroImage.component.astro'
 
 const { slug } = Astro.params
 
@@ -43,6 +44,10 @@ const shareFacebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIC
 ---
 
 <Layout title={publicacion.titulo}>
+  <HeroImage
+    title={publicacion.titulo}
+    imgUrl={publicacion.imagen_de_la_cabecera.url}
+  />
   <SEO
     description={publicacion.descripcion_de_la_card}
     openGraph={{
@@ -76,6 +81,8 @@ const shareFacebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIC
         <h1 class="text-4xl font-bold text-ayllus-primary">
           {publicacion.titulo}
         </h1>
+        <br />
+        <hr />
         <br />
         {
           publicacion.contenido.map((item) => {
