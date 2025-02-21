@@ -1,0 +1,38 @@
+---
+import HeroImage from '@src/components/share/HeroImage.component.astro'
+import TitlePage from '@src/components/share/TitlePage.component.astro'
+import Layout from '@src/layouts/Layout.astro'
+import fetchApi from '@src/lib/strapi'
+import ContactFormWrapper from '@src/sections/contactanos/FormContactanos.section'
+import type { ImagenCabeceraType } from '@src/types/share/imagenCabecera'
+
+const data = await fetchApi<ImagenCabeceraType>({
+  endpoint: 'contactanos-page',
+  query: {
+    'populate[imagen_de_la_cabecera][populate]': '*'
+  },
+  wrappedByKey: 'data'
+})
+
+const titlesForPage = {
+  tituloNegro: 'Servicio al cliente',
+  tituloMorado: 'Contáctate con nosotros'
+};
+---
+
+<Layout title="Contáctanos">
+  <HeroImage
+    title="Contáctanos"
+    imgUrl={data.imagen_de_la_cabecera?.url || ''}
+  />
+
+  <TitlePage {...titlesForPage} />
+
+  <ContactFormWrapper client:load />
+</Layout>
+
+<style is:global>
+  .grecaptcha-badge {
+    bottom: 80px !important;
+  }
+</style>
