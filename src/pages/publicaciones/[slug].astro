@@ -133,7 +133,14 @@ const shareFacebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIC
             if (item.type === 'quote') {
               return (
                 <blockquote class="border-l-4 border-gray-500 pl-4 italic">
-                  {item.children.map((child) => child.text)}
+                  {item.children.map((child) =>
+                    child.text?.split('\n').map((line, index) => (
+                      <Fragment key={index}>
+                        {line}
+                        <br />
+                      </Fragment>
+                    ))
+                  )}
                 </blockquote>
               )
             }
