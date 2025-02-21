@@ -1,0 +1,95 @@
+---
+import Icon from '@src/components/share/Icon.component.astro'
+import TitlePage from '@src/components/share/TitlePage.component.astro'
+import fetchApi from '@src/lib/strapi'
+import type { AhorrosGroupType } from '@src/types/ahorros/groupAhorros'
+
+const data = await fetchApi<AhorrosGroupType[]>({
+  endpoint: 'tipo-ahorros',
+  query: {
+    populate: '*'
+  },
+  wrappedByKey: 'data'
+})
+
+const titlesForPage = {
+  tituloNaranja: 'Tu dinero crece contigo',
+  tituloNegro: 'Ahorros Flexibles y Seguros',
+  tituloMorado:
+    ' Elige entre ahorro libre o plazo fijo y construye un futuro sólido con nuestras opciones personalizadas.'
+};
+---
+
+<head>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.min.css"
+  />
+</head>
+
+<div class="border-b border-gray-200 dark:border-gray-700 mb-4">
+  <ul
+    class="flex flex-wrap justify-center -mb-px"
+    id="myTab"
+    data-tabs-toggle="#myTabContent"
+    role="tablist"
+  >
+    {
+      data.map((item, index) => (
+        <li class="mr-2" role="presentation">
+          <button
+            class={`inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300 ${index === 0 ? 'active' : ''}`}
+            id={`dashboard-${item.id}-tab`}
+            data-tabs-target={`#dashboard-${item.id}`}
+            type="button"
+            role="tab"
+            aria-controls={`dashboard-${item.id}`}
+            aria-selected={index === 0 ? 'true' : 'false'}
+          >
+            {item.nombre}
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+<div id="myTabContent">
+  {
+    data.map((main, index) => (
+      <div
+        class={`p-4 rounded-lg ${index === 0 ? '' : 'hidden'}`}
+        id={`dashboard-${main.id}`}
+        role="tabpanel"
+        aria-labelledby={`dashboard-${main.id}-tab`}
+      >
+        <TitlePage {...titlesForPage} />
+
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          {main.ahorros.map((item) => (
+            <li>
+              <a
+                href={`/ahorros/${item.slug}`}
+                rel="noopener noreferrer"
+                class="flex flex-col gap-4 text-ayllus-primary shadow-md rounded-lg px-4 py-2 bg-slate-200 hover:bg-ayllus-primary hover:text-white transition-all duration-300 ease-in-out"
+              >
+                <Icon className="w-8 h-8" name={'ic:outline-storefront'} />
+                <h2>{item.nombre_ahorro}</h2>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>
+
+<script
+  src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"
+></script>
+
+<style>
+  .active {
+    color: #7406a7 !important;
+    border-color: #7406a7 !important;
+  }
+</style>

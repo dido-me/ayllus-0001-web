@@ -4,6 +4,8 @@ import LocationCard from '@src/components/home/LocationCard.component.astro'
 import fetchApi from '@src/lib/strapi'
 import type { DataOficina } from '@src/types/home/oficina'
 
+const PHONE_NUMBER = import.meta.env.PHONE_NUMBER || '966003622'
+
 const data = await fetchApi<DataOficina>({
   endpoint: 'home',
   query: {
@@ -76,7 +78,7 @@ const kimbiri = data.Contenido[0].Kimniri;
       <h2 class="text-ayllus-primary font-semibold text-xl mb-4">Teléfono</h2>
       <p>Atención al Cliente</p>
       <p class="text-ayllus-title font-semibold">
-        {import.meta.env.PHONE_NUMBER}
+        066 28-4623
       </p>
     </div>
     <div class="bg-white px-8 py-4 sm:py-10 rounded-3xl w-full sm:w-max flex-1">
@@ -89,7 +91,7 @@ const kimbiri = data.Contenido[0].Kimniri;
         <a href="https://www.instagram.com/cooperativa.ayllus.peru/" target="_blank" rel="noopener noreferrer">
           <Icon name="instagram" />
         </a>
-        <a href="http://" target="_blank" rel="noopener noreferrer">
+        <a href=`https://wa.me/51${PHONE_NUMBER}?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20de%20la%20cooperativa` target="_blank" rel="noopener noreferrer">
           <Icon name="whatsapp" />
         </a>
       </p>

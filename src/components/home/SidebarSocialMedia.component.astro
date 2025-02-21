@@ -1,5 +1,7 @@
 ---
-import Icon from '@src/components/share/Icon.component.astro';
+import Icon from '@src/components/share/Icon.component.astro'
+
+const PHONE_NUMBER = import.meta.env.PHONE_NUMBER || '966003622'
 ---
 
 <aside
@@ -26,7 +28,7 @@ import Icon from '@src/components/share/Icon.component.astro';
     </li>
     <li>
       <a
-        href="https://www.facebook.com/coorayllusperu"
+        href=`https://wa.me/51${PHONE_NUMBER}?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20de%20la%20cooperativa`
         target="_blank"
         rel="noopener noreferrer"
       >

@@ -187,13 +187,6 @@ function ContactForm () {
 
       </div>
 
-      {/* <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
-      >
-        {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
-      </button> */}
     </form>
   )
 }

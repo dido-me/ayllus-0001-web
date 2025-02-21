@@ -1,0 +1,98 @@
+---
+import HeroImage from '@src/components/share/HeroImage.component.astro'
+import Layout from '@src/layouts/Layout.astro'
+import fetchApi from '@src/lib/strapi'
+import type { InfoAhorroType } from '@src/types/ahorros/infoAhorro'
+import { SEO } from 'astro-seo'
+
+const { slug } = Astro.params
+
+let dataServer: InfoAhorroType[] = []
+let ahorroInfo: InfoAhorroType = {} as InfoAhorroType
+
+try {
+  dataServer = await fetchApi<InfoAhorroType[]>({
+    endpoint: 'ahorros',
+    query: {
+      populate: '*',
+      'filters[slug][$eq]': slug || ''
+    },
+    wrappedByKey: 'data'
+  })
+
+  ahorroInfo = dataServer[0]
+
+  if (ahorroInfo.contenido.length === 0) {
+    return Astro.redirect('/ahorros')
+  }
+} catch {
+  return Astro.redirect('/ahorros')
+}
+---
+
+<Layout title={ahorroInfo.nombre_ahorro}>
+  <HeroImage title="Ahorros" imgUrl={ahorroInfo.imagen_de_la_cabecera.url} />
+
+  <SEO
+    description={ahorroInfo.descripcion}
+    openGraph={{
+      basic: {
+        title: ahorroInfo.nombre_ahorro,
+        type: 'article',
+        image: ahorroInfo.imagen_de_la_cabecera.url
+      }
+    }}
+    extend={{
+      link: [{ rel: 'icon', href: '/favicon.ico' }],
+      meta: [
+        {
+          name: 'twitter:image',
+          content: ahorroInfo.imagen_de_la_cabecera.url
+        },
+        { name: 'twitter:title', content: ahorroInfo.nombre_ahorro },
+        {
+          name: 'twitter:description',
+          content: ahorroInfo.descripcion
+        }
+      ]
+    }}
+  />
+
+  <main class="container mx-auto px-4 py-8 md:py-16">
+    <section
+      class="w-full text-center flex flex-col items-center justify-center"
+    >
+      <h3
+        class="text-base sm:text-xl max-w-lg font-semibold text-ayllus-primary"
+      >
+        {ahorroInfo.tipo_ahorro}
+      </h3>
+      <h2
+        class="text-2xl sm:text-3xl md:text-4xl font-extrabold w-full max-w-lg"
+      >
+        {ahorroInfo.nombre_ahorro}
+      </h2>
+    </section>
+
+    <p class="text-justify font-medium text-lg sm:text-xl mx-auto mt-8">
+      {ahorroInfo.descripcion}
+    </p>
+
+    <section class="w-full py-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {
+        ahorroInfo.contenido.map((item) => (
+          <div>
+            <h3 class="text-xl font-extrabold text-ayllus-secondary pb-1">
+              {item.titulo}
+            </h3>
+            <ulc class="mt-3 pl-4 font-semibold text-ayllus-title list-disc list-inside space-y-2">
+              {item.contenido.map((contenido) => (
+                <li>{contenido}</li>
+              ))}
+            </ulc>
+          </div>
+        ))
+      }
+    </section>
+  </main>
+</Layout>

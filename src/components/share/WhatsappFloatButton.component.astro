@@ -1,9 +1,12 @@
 ---
 import Icon from '@src/components/share/Icon.component.astro'
+
+const PHONE_NUMBER = import.meta.env.PHONE_NUMBER || '966003622'
+
 ---
 
 <a
-    href="https://wa.me/51966003622?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20de%20la%20cooperativa"
+    href=`https://wa.me/51${PHONE_NUMBER}?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20de%20la%20cooperativa`
     target="_blank"
     class="fixed bottom-4 right-4 bg-ayllus-secondary text-white py-2 px-4 rounded-full shadow-lg hover:bg-ayllus-secondary/80 transition z-50 group"
 >

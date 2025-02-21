@@ -9,7 +9,6 @@ const API_STRAPI_URL = import.meta.env.STRAPI_URL || ''
 const EMAIL_USER = import.meta.env.EMAIL_USER || ''
 const EMAIL_PASS = import.meta.env.EMAIL_PASS || ''
 const EMAIL_ADMIN_REVIEW = import.meta.env.EMAIL_ADMIN_REVIEW || ''
-const BASE_URL = import.meta.env.BASE_URL || 'http://localhost:4321'
 
 const transporter = nodemailer.createTransport({
   host: 'mail.efsystemas.net',
@@ -50,10 +49,6 @@ async function sendConfirmationEmails (data: MessageData) {
     to: data.email,
     subject: 'Confirmación de Mensaje Recibido - Servicio al cliente - Coopac Ayllu Perú',
     html: `
-      <div style="text-align: center;">
-        <img src="${BASE_URL}/logo/isotipo_black.webp" alt="Isotipo Coopac Ayllu Perú" style="max-width: 100px; height: auto;" />
-        <img src="${BASE_URL}/logo/logo_black.webp" alt="Logo Coopac Ayllu Perú" style="max-width: 200px; height: auto;" />
-      </div>
       <h2>Estimado/a ${data.nombre_cliente}</h2>
       <p>Hemos recibido correctamente su mensaje con el asunto: "${data.asunto || 'Sin asunto'}"</p>
       <p>Nos pondremos en contacto con usted a la brevedad posible.</p>
@@ -68,10 +63,6 @@ async function sendConfirmationEmails (data: MessageData) {
     to: EMAIL_ADMIN_REVIEW,
     subject: 'Nuevo Mensaje Recibido de Servicio al cliente - Coopac Ayllu Perú',
     html: `
-      <div style="text-align: center;">
-        <img src="${BASE_URL}/logo/isotipo_black.webp" alt="Isotipo Coopac Ayllu Perú" style="max-width: 100px; height: auto;" />
-        <img src="${BASE_URL}/logo/logo_black.webp" alt="Logo Coopac Ayllu Perú" style="max-width: 200px; height: auto;" />
-      </div>
       <h2>Nuevo mensaje recibido</h2>
       <p>Se ha recibido un nuevo mensaje de ${data.nombre_cliente} (${data.email}).</p>
       <p><strong>Asunto:</strong> ${data.asunto || 'Sin asunto'}</p>

@@ -1,0 +1,31 @@
+---
+import HeroImage from '@src/components/share/HeroImage.component.astro'
+import Layout from '@src/layouts/Layout.astro'
+import fetchApi from '@src/lib/strapi'
+import SwitchGroup from '@src/sections/ahorros/SwitchGroup.section.astro'
+import type { ImagenCabeceraType } from '@src/types/share/imagenCabecera'
+
+const data = await fetchApi<ImagenCabeceraType>({
+  endpoint: 'ahorros-principal-page',
+  query: {
+    'populate[imagen_de_la_cabecera][populate]': '*'
+  },
+  wrappedByKey: 'data'
+});
+---
+
+<Layout title="Ahorros">
+  <HeroImage
+    title="Ahorros"
+    imgUrl={data.imagen_de_la_cabecera?.url || ''}
+  />
+
+  <main class="container mx-auto my-10 px-8">
+
+    <h3 class="font-bold text-lg md:text-2xl text-center">Tenemos para ti</h3>
+
+    <SwitchGroup />
+
+  </main>
+
+</Layout>
