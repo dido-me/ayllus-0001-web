@@ -1,0 +1,26 @@
+---
+import HeroImage from '@src/components/share/HeroImage.component.astro'
+import Layout from '@src/layouts/Layout.astro'
+import fetchApi from '@src/lib/strapi'
+import CarouselPublicaciones from '@src/sections/publicaciones/CarouselPublicaciones.section.astro'
+import PublicacionesRecientes from '@src/sections/publicaciones/PublicacionesRecientes.section.astro'
+import type { ImagenCabeceraType } from '@src/types/share/imagenCabecera'
+
+const data = await fetchApi<ImagenCabeceraType>({
+  endpoint: 'directivos-page',
+  query: {
+    'populate[imagen_de_la_cabecera][populate]': '*'
+  },
+  wrappedByKey: 'data'
+});
+---
+
+<Layout title="Publicaciones">
+  <HeroImage
+    title="Publicaciones"
+    imgUrl={data.imagen_de_la_cabecera?.url || ''}
+  />
+
+  <CarouselPublicaciones />
+  <PublicacionesRecientes />
+</Layout>

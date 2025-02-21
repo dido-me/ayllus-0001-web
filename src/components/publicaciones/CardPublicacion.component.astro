@@ -1,0 +1,42 @@
+---
+import type { ImagenCard } from '@src/types/publicaciones/publicacionesDestacadas'
+import { Image } from 'astro:assets'
+
+interface Props {
+    cover: ImagenCard;
+    title: string;
+    description: string;
+    slug: string;
+}
+
+const { cover, title, description, slug } = Astro.props as Props;
+---
+
+<div class="flex flex-col justify-between gap-4 px-4">
+    <div class="w-full max-h-[14rem] bg-slate-500 rounded-xl overflow-hidden">
+        <Image
+            src={cover.url}
+            width={cover.width}
+            height={cover.height}
+            alt={title}
+        />
+    </div>
+    <div class="flex flex-col gap-2">
+        <h1 class="font-medium text-3xl" title={title}>
+            {title.length > 30 ? title.substring(0, 30) + '...' : title}
+        </h1>
+        <p class="font-normal text-xl" title={description}>
+            {
+                description.length > 100
+                  ? description.substring(0, 80) + '...'
+                  : description
+            }
+        </p>
+    </div>
+    <a
+        href={`/publicaciones/${slug}`}
+        class="bg-ayllus-primary text-white text-lg font-bold max-w-max px-8 py-2 rounded-xl border-2 border-transparent hover:border-ayllus-primary hover:bg-white hover:text-ayllus-primary transition duration-300 ease-in-out"
+    >
+        Leer más
+    </a>
+</div>

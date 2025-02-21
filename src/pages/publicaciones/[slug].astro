@@ -1,0 +1,266 @@
+---
+import Layout from '@src/layouts/Layout.astro'
+import { SEO } from 'astro-seo'
+import fetchApi from '@src/lib/strapi'
+import type { PublicacionContenidoType } from '@src/types/publicaciones/publicacionContenido'
+import Icon from '@src/components/share/Icon.component.astro'
+
+const { slug } = Astro.params
+
+let dataServer: PublicacionContenidoType[] = []
+let publicacion: PublicacionContenidoType = {} as PublicacionContenidoType
+
+try {
+  dataServer = await fetchApi<PublicacionContenidoType[]>({
+    endpoint: 'publicacions',
+    query: {
+      populate: '*',
+      'filters[slug][$eq]': slug || ''
+    },
+    wrappedByKey: 'data'
+  })
+
+  publicacion = dataServer[0]
+
+  if (publicacion.contenido.length === 0) {
+    return Astro.redirect('/publicaciones')
+  }
+} catch {
+  return Astro.redirect('/publicaciones')
+}
+
+const date = new Date(publicacion.publishedAt || Date.now())
+const options: Intl.DateTimeFormatOptions = {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+}
+const formatter = new Intl.DateTimeFormat('es-PE', options)
+const formattedDate: string = formatter.format(date)
+
+const urlCurrent = Astro.request.url
+const shareFacebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlCurrent)}`;
+---
+
+<Layout title={publicacion.titulo}>
+  <SEO
+    description={publicacion.descripcion_de_la_card}
+    openGraph={{
+      basic: {
+        title: publicacion.titulo,
+        type: 'article',
+        image: publicacion.imagen_card.url
+      }
+    }}
+    extend={{
+      link: [{ rel: 'icon', href: '/favicon.ico' }],
+      meta: [
+        { name: 'twitter:image', content: publicacion.imagen_card.url },
+        { name: 'twitter:title', content: publicacion.titulo },
+        {
+          name: 'twitter:description',
+          content: publicacion.descripcion_de_la_card
+        }
+      ]
+    }}
+  />
+
+  <main class="mt-20 sm:mt-36 xl:mt-44">
+    <section
+      class="max-w-screen-xl rounded-xl border-2 border-[#CFCFD7] mx-auto my-10 px-10 py-8 flex flex-col gap-10"
+    >
+      <p class="text-ayllus-secondary font-medium">
+        Publicado el {formattedDate}
+      </p>
+      <div class="text-black">
+        <h1 class="text-4xl font-bold text-ayllus-primary">
+          {publicacion.titulo}
+        </h1>
+        <br />
+        {
+          publicacion.contenido.map((item) => {
+            if (item.type === 'paragraph') {
+              return item.children.length === 0 ||
+                item.children.every((child) => child.text === '')
+                ? (
+                <br />
+                  )
+                : (
+                <p>
+                  {item.children.map((child) =>
+                    child.type === 'link'
+                      ? (
+                      <a
+                        href={child.url}
+                        class="text-blue-500 underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {child.children
+                          ?.map((linkChild) => linkChild.text)
+                          .join(' ')}
+                      </a>
+                        )
+                      : child.code
+                        ? (
+                      <code class="bg-gray-200 text-red-600 p-1 rounded font-mono text-sm">
+                        {child.text}
+                      </code>
+                          )
+                        : (
+                      <span
+                        class={
+                          `${child.bold ? 'font-bold' : ''} ` +
+                          `${child.italic ? 'italic' : ''} ` +
+                          `${child.underline ? 'underline' : ''} ` +
+                          `${child.strikethrough ? 'line-through' : ''}`
+                        }
+                      >
+                        {child.text}
+                      </span>
+                          )
+                  )}
+                </p>
+                  )
+            }
+            if (item.type === 'quote') {
+              return (
+                <blockquote class="border-l-4 border-gray-500 pl-4 italic">
+                  {item.children.map((child) => child.text)}
+                </blockquote>
+              )
+            }
+            if (item.type === 'image') {
+              return (
+                <img
+                  src={item.image?.url}
+                  alt={publicacion.titulo}
+                  class="w-full h-auto rounded-md"
+                />
+              )
+            }
+            if (item.type === 'heading') {
+              return item.level === 1
+                ? (
+                <h1 class="text-4xl font-bold text-ayllus-primary">
+                  {item.children.map((child) => child.text)}
+                </h1>
+                  )
+                : item.level === 2
+                  ? (
+                <h2 class="text-3xl font-bold text-ayllus-primary">
+                  {item.children.map((child) => child.text)}
+                </h2>
+                    )
+                  : item.level === 3
+                    ? (
+                <h3 class="text-2xl font-bold text-ayllus-primary">
+                  {item.children.map((child) => child.text)}
+                </h3>
+                      )
+                    : item.level === 4
+                      ? (
+                <h4 class="text-xl font-bold text-ayllus-primary">
+                  {item.children.map((child) => child.text)}
+                </h4>
+                        )
+                      : item.level === 5
+                        ? (
+                <h5 class="text-lg font-bold text-ayllus-primary">
+                  {item.children.map((child) => child.text)}
+                </h5>
+                          )
+                        : (
+                <h6 class="text-base font-bold text-ayllus-primary">
+                  {item.children.map((child) => child.text)}
+                </h6>
+                          )
+            }
+            if (item.type === 'code') {
+              return (
+                <pre class="bg-gray-900 text-green-400 p-4 rounded-md overflow-auto font-mono text-sm">
+                  <code>
+                    {item.children.map((child) => child.text).join('\n')}
+                  </code>
+                </pre>
+              )
+            }
+            if (item.type === 'list') {
+              return item.format === 'ordered'
+                ? (
+                <ol class="list-decimal list-inside">
+                  {item.children.map((listItem) => (
+                    <li>
+                      {listItem.children?.map((child) => child.text).join(' ')}
+                    </li>
+                  ))}
+                </ol>
+                  )
+                : (
+                <ul class="list-disc list-inside">
+                  {item.children.map((listItem) => (
+                    <li>
+                      {listItem.children?.map((child) => child.text).join(' ')}
+                    </li>
+                  ))}
+                </ul>
+                  )
+            }
+            return null
+          })
+        }
+      </div>
+      <div
+        class="border-y-2 border-[#CFCFD7] py-6 px-4 flex flex-col md:flex-row md:justify-between justify-center items-center gap-6"
+      >
+        <div class="flex gap-4 items-center">
+          <a href={shareFacebook} target="_blank" rel="noopener noreferrer">
+            <Icon name="facebook" className="w-8 h-8 text-ayllus-secondary" />
+          </a>
+          <button id="copyButton">
+            <Icon
+              name="si:clipboard-filled-line"
+              className="w-8 h-8 text-ayllus-secondary"
+            />
+          </button>
+        </div>
+        <h3 class="text-[#CFCFD7] text-xl">PUBLICACION</h3>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+const copyButton = document.getElementById('copyButton')
+
+  copyButton!.addEventListener('click', () => {
+    const currentUrl = window.location.href
+
+    navigator.clipboard
+      .writeText(currentUrl)
+      .then(() => {
+        copyButton!.innerText = '¡URL copiada!'
+
+        setTimeout(() => {
+          copyButton!.innerHTML = `
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width=24
+    height=24
+    class="w-7 h-7 text-ayllus-secondary"
+    viewBox="0 0 14 14"
+  >
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8.5 3.5v-1a1 1 0 0 0-1-1h-1m-2.5 9H1.5a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h1"></path>
+      <rect width="7" height="8" x="6.5" y="5.5" rx="1"></rect>
+      <path d="M6.75.5h-4.5l.41 1.62a.49.49 0 0 0 .48.38h2.72a.49.49 0 0 0 .48-.38Zm1.75 8h3m-3 2h3"></path>
+    </g>
+  </svg>
+`
+        }, 2000)
+      })
+      .catch((err) => {
+        console.error('Error al copiar la URL: ', err)
+      })
+  })
+</script>

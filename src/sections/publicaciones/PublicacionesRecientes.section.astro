@@ -1,0 +1,39 @@
+---
+import CardPublicacion from '@src/components/publicaciones/CardPublicacion.component.astro'
+import fetchApi from '@src/lib/strapi'
+import type { PublicacionDestacadaType } from '@src/types/publicaciones/publicacionesDestacadas'
+
+const data = await fetchApi<PublicacionDestacadaType[]>({
+  endpoint: 'publicacions',
+  query: {
+    'fields[0]': 'titulo',
+    'fields[1]': 'descripcion_de_la_card',
+    'fields[2]': 'slug',
+    'populate[0]': 'imagen_card'
+  },
+  wrappedByKey: 'data'
+});
+---
+
+<section class="max-w-screen-xl mx-auto py-10">
+  <h1
+    class="text-ayllus-secondary text-2xl lg:text-4xl font-bold my-14 text-center lg:text-left"
+  >
+    Noticias recientes
+  </h1>
+
+  <div
+    class="grid gap-4 auto-rows-[28rem] grid-cols-[repeat(auto-fill,minmax(20rem,1fr))]"
+  >
+    {
+      data.map((item) => (
+        <CardPublicacion
+          cover={item.imagen_card}
+          title={item.titulo}
+          description={item.descripcion_de_la_card}
+          slug={item.slug}
+        />
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,122 @@
+---
+import CardDestacado from '@src/components/publicaciones/CardDestacado.component.astro'
+import fetchApi from '@src/lib/strapi'
+import type { PublicacionDestacadaType } from '@src/types/publicaciones/publicacionesDestacadas'
+
+const serverData = await fetchApi<PublicacionDestacadaType[]>({
+  endpoint: 'publicacions',
+  query: {
+    'fields[0]': 'titulo',
+    'fields[1]': 'descripcion_de_la_card',
+    'fields[2]': 'slug',
+    'populate[0]': 'imagen_card',
+    'filters[publicacion_destacado][$eq]': 'true'
+  },
+  wrappedByKey: 'data'
+})
+
+---
+
+<section class="max-w-screen-xl mx-auto px-8 md:px-0 rounded-2xl overflow-hidden my-12">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            {
+                serverData.map((item) => (
+                    <div class="swiper-slide">
+                        <CardDestacado
+                            title={item.titulo}
+                            description={item.descripcion_de_la_card}
+                            cover={item.imagen_card}
+                            slug={item.slug}
+                        />
+                    </div>
+                ))
+            }
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
+<script>
+import Swiper from 'swiper'
+import { Pagination, Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
+
+const swiper = new Swiper('.mySwiper', {
+  modules: [Pagination, Autoplay],
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true
+  },
+  //   autoplay: {
+  //     delay: 20000
+  //   },
+  slidesPerView: 1,
+  spaceBetween: 10,
+  breakpoints: {
+    640: {
+      slidesPerView: 1,
+      spaceBetween: 20
+    },
+    768: {
+      slidesPerView: 1,
+      spaceBetween: 40
+    },
+    1024: {
+      slidesPerView: 1,
+      spaceBetween: 50
+    }
+  }
+})
+
+swiper.init()
+</script>
+
+<style>
+    .swiper {
+        width: 100%;
+        height: 70vh;
+    }
+
+    @media (max-width: 768px) {
+        .swiper {
+            height: 60vh;
+        }
+    }
+
+    .swiper-slide video,
+    .swiper-slide img,
+    .swiper-slide a {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #f1eeee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<style is:global>
+    .swiper-pagination-bullet {
+        width: 20px !important;
+        height: 20px !important;
+        text-align: center;
+        line-height: 20px;
+        font-size: 12px;
+        color: #000;
+        opacity: 1 !important;
+        background: #c0c4ca !important;
+    }
+
+    .swiper-pagination-bullet-active {
+        color: #fff;
+        background: #7406a7 !important;
+    }
+</style>
