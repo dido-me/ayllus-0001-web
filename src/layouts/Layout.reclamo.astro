@@ -1,14 +1,5 @@
 ---
 import '@fontsource-variable/onest'
-import Footer from '@src/components/share/Footer.component.astro'
-import Navbar from '@src/components/share/Navbar.component.astro'
-import WhatsappFloatButton from '@src/components/share/WhatsappFloatButton.component.astro'
-
-interface Props {
-    title ?: string ;
-}
-
-const { title } = Astro.props as Props;
 ---
 
 <!doctype html>
@@ -18,13 +9,12 @@ const { title } = Astro.props as Props;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Ayllus Peru {title && `| ${title}`}</title>
+		<title>Libro de Reclamaciones Virtual | COOPERATIVA DE AHORRO Y CRÉDITO AYLLUS PERÚ LIMITADA </title>
 	</head>
 	<body>
-		<Navbar />
+
 		<slot />
-		<WhatsappFloatButton />
-		<Footer />
+
 	</body>
 </html>
 

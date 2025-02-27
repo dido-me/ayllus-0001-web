@@ -1,0 +1,30 @@
+export interface LibroDeReclamo {
+    documento_identidad: 'DNI' | 'RUC' | 'CARNET DE EXTRANJERIA' | 'PASAPORTE';
+    numero_documento: string;
+    nombres: string;
+    apellido_paterno: string;
+    apellido_materno: string;
+    telefono?: string;
+    celular?: string;
+    correo_electronico: string;
+    domicilio: string;
+    departamento: string;
+    menor_de_edad: boolean;
+    documento_identidad_tutor?: string;
+    numero_documento_tutor?: string;
+    nombres_tutor?: string;
+    apellido_paterno_tutor?: string;
+    apellido_materno_tutor?: string;
+    telefono_tutor?: string;
+    celular_tutor?: string;
+    correo_electronico_tutor?: string;
+    motivo: 'Producto' | 'Servicio';
+    descripcion_motivo: string;
+    monto_reclamo_motivo: string;
+    tipo_libro_reclamacion: 'Reclamo' | 'Queja';
+    medio_respuesta: 'Carta' | 'Email';
+    detalle: string;
+    archivos_adjunto?: number[];
+    pedido?: string;
+    estado_reclamo: 'Recibido' | 'En Curso' | 'Cerrado';
+  }
