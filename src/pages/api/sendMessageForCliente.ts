@@ -9,6 +9,7 @@ const API_STRAPI_URL = import.meta.env.STRAPI_URL || ''
 const EMAIL_USER = import.meta.env.EMAIL_USER || ''
 const EMAIL_PASS = import.meta.env.EMAIL_PASS || ''
 const EMAIL_ADMIN_REVIEW = import.meta.env.EMAIL_ADMIN_REVIEW || ''
+const TOKEN_STRAPI = import.meta.env.TOKEN_STRAPI || ''
 
 const transporter = nodemailer.createTransport({
   host: 'mail.efsystemas.net',
@@ -47,10 +48,13 @@ async function sendConfirmationEmails (data: MessageData) {
   const userMailOptions = {
     from: EMAIL_USER,
     to: data.email,
-    subject: 'Confirmación de Mensaje Recibido - Servicio al cliente - Coopac Ayllu Perú',
+    subject:
+      'Confirmación de Mensaje Recibido - Servicio al cliente - Coopac Ayllu Perú',
     html: `
       <h2>Estimado/a ${data.nombre_cliente}</h2>
-      <p>Hemos recibido correctamente su mensaje con el asunto: "${data.asunto || 'Sin asunto'}"</p>
+      <p>Hemos recibido correctamente su mensaje con el asunto: "${
+        data.asunto || 'Sin asunto'
+      }"</p>
       <p>Nos pondremos en contacto con usted a la brevedad posible.</p>
       <p>Gracias por contactarnos,</p>
       <p>Equipo Coopac Ayllu Perú</p>
@@ -61,17 +65,24 @@ async function sendConfirmationEmails (data: MessageData) {
   const adminMailOptions = {
     from: EMAIL_USER,
     to: EMAIL_ADMIN_REVIEW,
-    subject: 'Nuevo Mensaje Recibido de Servicio al cliente - Coopac Ayllu Perú',
+    subject:
+      'Nuevo Mensaje Recibido de Servicio al cliente - Coopac Ayllu Perú',
     html: `
       <h2>Nuevo mensaje recibido</h2>
-      <p>Se ha recibido un nuevo mensaje de ${data.nombre_cliente} (${data.email}).</p>
+      <p>Se ha recibido un nuevo mensaje de ${data.nombre_cliente} (${
+      data.email
+    }).</p>
       <p><strong>Asunto:</strong> ${data.asunto || 'Sin asunto'}</p>
       <p><strong>DNI:</strong> ${data.dni || 'No proporcionado'}</p>
       <p><strong>Localidad:</strong> ${data.localidad || 'No proporcionada'}</p>
       <p><strong>Dirección:</strong> ${data.direccion || 'No proporcionada'}</p>
       <p><strong>Celular:</strong> ${data.celular || 'No proporcionado'}</p>
       <p><strong>Mensaje:</strong> ${data.mensaje_cliente || 'Sin mensaje'}</p>
-      <p><strong>Archivos adjuntos:</strong> ${data.archivos_adjunto.length > 0 ? data.archivos_adjunto.length : 'Ninguno'}</p>
+      <p><strong>Archivos adjuntos:</strong> ${
+        data.archivos_adjunto.length > 0
+          ? data.archivos_adjunto.length
+          : 'Ninguno'
+      }</p>
       <p>Por favor, revisar en el sistema Strapi para más detalles, ingrese <a href="https://ayllus-0001-strapi-production.up.railway.app/admin" target="_blank">aquí</a>.</p>
     `
   }
@@ -121,6 +132,9 @@ export async function POST ({ request }: APIContext) {
 
       const uploadResponse = await fetch(`${API_STRAPI_URL}/api/upload`, {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${TOKEN_STRAPI}`
+        },
         body: uploadData
       })
 
@@ -153,7 +167,8 @@ export async function POST ({ request }: APIContext) {
       {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${TOKEN_STRAPI}`
         },
         body: JSON.stringify(mensajeData)
       }

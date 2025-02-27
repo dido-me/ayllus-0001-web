@@ -10,4 +10,5 @@ interface ImportMetaEnv {
   readonly EMAIL_PASS: string;
   readonly EMAIL_ADMIN_REVIEW: string;
   readonly BASE_URL: string;
+  readonly TOKEN_STRAPI: string;
 }
