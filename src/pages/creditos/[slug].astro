@@ -4,11 +4,12 @@ import Layout from '@src/layouts/Layout.astro'
 import fetchApi from '@src/lib/strapi'
 import type { InfoCreditoType } from '@src/types/creditos/infoCredito'
 import { SEO } from 'astro-seo'
+import Icon from '@src/components/share/Icon.component.astro'
 
 const { slug } = Astro.params
 
 let dataServer: InfoCreditoType[] = []
-let creditoInfo: InfoCreditoType = {} as InfoCreditoType
+let ahorroInfo: InfoCreditoType = {} as InfoCreditoType
 
 try {
   dataServer = await fetchApi<InfoCreditoType[]>({
@@ -20,26 +21,40 @@ try {
     wrappedByKey: 'data'
   })
 
-  creditoInfo = dataServer[0]
+  ahorroInfo = dataServer[0]
 
-  if (creditoInfo.contenido.length === 0) {
+  if (ahorroInfo.contenido.length === 0) {
     return Astro.redirect('/creditos')
   }
 } catch {
   return Astro.redirect('/creditos')
 }
+
+// Helper function to format date
+const formatDate = (date: Date) => {
+  return new Date(date).toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
+
+const PHONE_NUMBER = import.meta.env.PHONE_NUMBER || '966003622'
+
+const urlCurrent = Astro.request.url
+const urlShareWhatsapp = `https://wa.me/51${PHONE_NUMBER}?text=Quiero%20saber%20m%C3%A1s%20de%20este%20cr%C3%A9dito.%20Aqu%C3%AD%20est%C3%A1%20el%20enlace:%20${encodeURIComponent(urlCurrent)}`;
 ---
 
-<Layout title={creditoInfo.nombre_credito}>
-  <HeroImage title="Creditos" imgUrl={creditoInfo.imagen_de_la_cabecera.url} />
+<Layout title={ahorroInfo.nombre_credito}>
+  <HeroImage title="Créditos" imgUrl={ahorroInfo.imagen_de_la_cabecera.url} />
 
   <SEO
-    description={creditoInfo.descripcion}
+    description={ahorroInfo.descripcion}
     openGraph={{
       basic: {
-        title: creditoInfo.nombre_credito,
+        title: ahorroInfo.nombre_credito,
         type: 'article',
-        image: creditoInfo.imagen_de_la_cabecera.url
+        image: ahorroInfo.imagen_de_la_cabecera.url
       }
     }}
     extend={{
@@ -47,52 +62,258 @@ try {
       meta: [
         {
           name: 'twitter:image',
-          content: creditoInfo.imagen_de_la_cabecera.url
+          content: ahorroInfo.imagen_de_la_cabecera.url
         },
-        { name: 'twitter:title', content: creditoInfo.nombre_credito },
+        { name: 'twitter:title', content: ahorroInfo.nombre_credito },
         {
           name: 'twitter:description',
-          content: creditoInfo.descripcion
+          content: ahorroInfo.descripcion
         }
       ]
     }}
   />
 
   <main class="container mx-auto px-4 py-8 md:py-16">
+    <!-- Product Header Section -->
     <section
-      class="w-full text-center flex flex-col items-center justify-center"
+      class="w-full text-center flex flex-col items-center justify-center mb-12"
     >
-      <h3
-        class="text-base sm:text-xl max-w-lg font-semibold text-ayllus-primary"
+      <div
+        class="bg-gradient-to-r from-ayllus-primary/10 to-ayllus-secondary/10 py-3 px-6 rounded-full mb-4"
       >
-        {creditoInfo.tipo_credito}
-      </h3>
+        <h3 class="text-base sm:text-xl font-semibold text-ayllus-primary">
+          {ahorroInfo.grupo_credito.nombre}
+        </h3>
+      </div>
       <h2
-        class="text-2xl sm:text-3xl md:text-4xl font-extrabold w-full max-w-lg"
+        class="text-3xl sm:text-4xl md:text-5xl font-extrabold w-full max-w-2xl mb-6 text-ayllus-secondary"
       >
-        {creditoInfo.nombre_credito}
+        {ahorroInfo.nombre_credito}
       </h2>
+      <div
+        class="flex items-center justify-center text-sm text-gray-600 bg-gray-100 px-4 py-2 rounded-full"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4 mr-2 text-ayllus-primary"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          ></path>
+        </svg>
+        Última actualización: {formatDate(ahorroInfo.updatedAt)}
+      </div>
     </section>
 
-    <p class="text-justify font-medium text-lg sm:text-xl mx-auto mt-8">
-      {creditoInfo.descripcion}
-    </p>
-
-    <section class="w-full py-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-      {
-        creditoInfo.contenido.map((item) => (
-          <div>
-            <h3 class="text-xl font-extrabold text-ayllus-secondary pb-1">
-              {item.titulo}
-            </h3>
-            <ulc class="mt-3 pl-4 font-semibold text-ayllus-title list-disc list-inside space-y-2">
-              {item.contenido.map((contenido) => (
-                <li>{contenido}</li>
-              ))}
-            </ulc>
+    <!-- Product Overview Section -->
+    <div
+      class="flex flex-col md:flex-row items-center md:items-start gap-12 mt-8 bg-white rounded-2xl shadow-lg p-6 md:p-10"
+    >
+      <!-- Product Image -->
+      <div class="w-full md:w-2/5 flex flex-col items-center">
+        <div class="relative w-full overflow-hidden rounded-xl shadow-xl">
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-ayllus-primary/20 to-transparent z-10"
+          >
           </div>
-        ))
-      }
+          <img
+            src={ahorroInfo.imagen_de_contenido.url || '/placeholder.svg'}
+            alt={ahorroInfo.imagen_de_contenido.alternativeText ||
+              'Imagen del producto de ahorro'}
+            class="w-full aspect-[16/9] object-cover transform hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+      </div>
+
+      <!-- Product Description -->
+      <div class="md:w-3/5">
+        <div class="flex items-center mb-6">
+          <h3 class="text-2xl font-bold text-ayllus-secondary">
+            Descripción del Producto
+          </h3>
+        </div>
+
+        <p
+          class="text-justify font-medium text-lg leading-relaxed mb-8 text-gray-700"
+        >
+          {ahorroInfo.descripcion}
+        </p>
+
+        <!-- CTA Button -->
+        <div class="mt-6">
+          <a
+            href="#detalles"
+            class="inline-flex items-center justify-center px-6 py-3 bg-ayllus-primary text-white font-medium rounded-lg shadow-md hover:bg-ayllus-primary/90 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ayllus-primary"
+          >
+            <span>Ver detalles completos</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 ml-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Details Section -->
+    <section id="detalles" class="w-full py-16">
+      <div class="text-center mb-12">
+        <h3
+          class="text-3xl font-bold text-ayllus-secondary inline-block relative"
+        >
+          Detalles del Producto
+          <div
+            class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-ayllus-primary to-ayllus-secondary"
+          >
+          </div>
+        </h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {
+          ahorroInfo.contenido.map((item) => (
+            <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+              <div class="flex items-center mb-6">
+                <div class="bg-ayllus-primary/10 rounded-full p-3 mr-4">
+                  <Icon
+                    name="tabler:file-invoice-filled"
+                    className="w-6 h-6 text-ayllus-primary"
+                  />
+                </div>
+                <h4 class="text-xl font-extrabold text-ayllus-secondary">
+                  {item.titulo}
+                </h4>
+              </div>
+              <ul class="mt-4 space-y-3">
+                {item.contenido.map((contenido) => (
+                  <li class="flex items-start bg-gray-50 p-3 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                    <span class="text-ayllus-primary mr-3 mt-0.5">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span class="font-medium text-gray-700">{contenido}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Additional Information Section -->
+    <section
+      class="mt-8 mb-16 bg-gradient-to-r from-ayllus-primary/5 to-ayllus-secondary/5 p-8 rounded-xl border border-gray-200"
+    >
+      <div class="flex items-center mb-6">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 text-ayllus-primary mr-3"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <h3 class="text-xl font-bold text-ayllus-secondary">
+          Información Adicional
+        </h3>
+      </div>
+      <p class="text-gray-700 leading-relaxed">
+        Este producto de ahorro está diseñado para brindarte seguridad y
+        rentabilidad, sujeto a los términos y condiciones de nuestra
+        institución. Para más información, contáctanos a nuestro servicio al
+        cliente o visita una de nuestras sucursales.
+      </p>
+
+      <!-- Contact CTA -->
+      <div
+        class="mt-8 flex flex-col sm:flex-row items-center justify-between bg-white p-6 rounded-lg shadow-md"
+      >
+        <div>
+          <h4 class="text-lg font-bold text-ayllus-secondary mb-2">
+            ¿Necesitas más información?
+          </h4>
+          <p class="text-gray-600">
+            Nuestros asesores están listos para ayudarte
+          </p>
+        </div>
+        <a
+          href={urlShareWhatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-4 sm:mt-0 inline-flex items-center justify-center px-6 py-3 bg-ayllus-secondary text-white font-medium rounded-lg shadow-md hover:bg-ayllus-secondary/90 transition-colors duration-300"
+        >
+          Contactar ahora
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 ml-2"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Related Products Section (Optional) -->
+    <section class="w-full py-8 border-t border-gray-200">
+      <div class="text-center mb-8">
+        <h3 class="text-2xl font-bold text-ayllus-secondary">
+          También te podría interesar
+        </h3>
+      </div>
+
+      <div class="flex justify-center">
+        <a
+          href="/creditos"
+          class="inline-flex items-center justify-center px-6 py-3 border border-ayllus-primary text-ayllus-primary font-medium rounded-lg hover:bg-ayllus-primary hover:text-white transition-colors duration-300"
+        >
+          Ver todos los productos de créditos
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 ml-2"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
     </section>
   </main>
 </Layout>

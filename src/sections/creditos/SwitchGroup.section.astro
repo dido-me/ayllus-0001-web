@@ -69,10 +69,37 @@ const titlesForPage = {
               <a
                 href={`/creditos/${item.slug}`}
                 rel="noopener noreferrer"
-                class="flex flex-col gap-4 text-ayllus-primary shadow-md rounded-lg px-4 py-2 bg-slate-200 hover:bg-ayllus-primary hover:text-white transition-all duration-300 ease-in-out"
+                class="flex flex-col gap-3 text-ayllus-primary shadow-md rounded-lg px-5 py-4 bg-slate-100 hover:bg-ayllus-primary hover:text-white group h-full"
+                aria-label={`Ver detalles de ${item.nombre_credito}`}
               >
-                <Icon className="w-8 h-8" name={main.nombre === 'Empresas' ? 'ic:outline-storefront' : 'money-bills'} />
-                <h2>{item.nombre_credito}</h2>
+                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-white/60 group-hover:bg-white/20 transition-colors duration-300">
+                  <Icon
+                    className="w-8 h-8"
+                    name={'fluent:credit-card-person-24-filled'}
+                  />
+                </div>
+
+                <h2 class="font-medium text-lg">{item.nombre_credito}</h2>
+
+                {item.descripcion && (
+                  <div class="flex flex-col flex-grow">
+                    <p
+                      class="text-sm opacity-90 group-hover:text-white/90 line-clamp-3 mb-2"
+                      title={
+                        item.descripcion.length > 130
+                          ? item.descripcion
+                          : undefined
+                      }
+                    >
+                      {item.descripcion.length > 130
+                        ? `${item.descripcion.substring(0, 130)}...`
+                        : item.descripcion}
+                    </p>
+                    <span class="text-sm font-medium mt-auto underline underline-offset-2 group-hover:text-white">
+                      Ver más
+                    </span>
+                  </div>
+                )}
               </a>
             </li>
           ))}

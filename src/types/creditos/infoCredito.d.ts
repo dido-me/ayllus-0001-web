@@ -1,7 +1,6 @@
 export interface InfoCreditoType {
     id: number;
     documentId: string;
-    tipo_credito: string;
     nombre_credito: string;
     descripcion: string;
     createdAt: Date;
@@ -10,7 +9,8 @@ export interface InfoCreditoType {
     slug: string;
     contenido: Contenido[];
     grupo_credito: GrupoCredito;
-    imagen_de_la_cabecera: ImagenDeLaCabecera;
+    imagen_de_la_cabecera: ImagenDe;
+    imagen_de_contenido: ImagenDe;
 }
 
 export interface Contenido {
@@ -28,7 +28,7 @@ export interface GrupoCredito {
     publishedAt: Date;
 }
 
-export interface ImagenDeLaCabecera {
+export interface ImagenDe {
     id: number;
     documentId: string;
     name: string;

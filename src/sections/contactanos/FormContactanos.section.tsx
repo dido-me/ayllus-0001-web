@@ -95,99 +95,110 @@ function ContactForm () {
   }, [executeRecaptcha, reset])
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="container mx-auto px-10 md:px-20 pb-20 grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="mb-4">
-        <label className="block text-lg md:text-2xl font-extrabold mb-4">Nombre Cliente</label>
-        <input {...register('nombre_cliente')} className="w-full p-2 border rounded-lg shadow border-[#0E0D35]" />
-        {errors.nombre_cliente && <p className="text-red-500">{errors.nombre_cliente.message}</p>}
+    <form onSubmit={handleSubmit(onSubmit)} className="container mx-auto px-4 md:px-8 pb-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {/* Nombre Cliente */}
+      <div>
+        <label className="block text-sm font-semibold mb-1">Nombre Cliente</label>
+        <input {...register('nombre_cliente')} className="w-full p-1 border border-black rounded-md shadow-sm" />
+        {errors.nombre_cliente && <p className="text-red-500 text-xs">{errors.nombre_cliente.message}</p>}
       </div>
 
-      <div className="mb-4">
-        <label className="block text-lg md:text-2xl font-extrabold mb-4">DNI</label>
-        <input {...register('dni')} className="w-full p-2 border rounded-lg shadow border-[#0E0D35]" maxLength={8} />
-        {errors.dni && <p className="text-red-500">{errors.dni.message}</p>}
+      {/* DNI */}
+      <div>
+        <label className="block text-sm font-semibold mb-1">DNI</label>
+        <input {...register('dni')} className="w-full p-1 border border-black rounded-md shadow-sm" maxLength={8} />
+        {errors.dni && <p className="text-red-500 text-xs">{errors.dni.message}</p>}
       </div>
 
-      <div className="mb-4">
-        <label className="block text-lg md:text-2xl font-extrabold mb-4">Localidad</label>
-        <select {...register('localidad')} className="w-full p-2 border rounded-lg shadow border-[#0E0D35]">
+      {/* Localidad */}
+      <div>
+        <label className="block text-sm font-semibold mb-1">Localidad</label>
+        <select {...register('localidad')} className="w-full p-1 border border-black rounded-md shadow-sm">
           <option value="Ayacucho">Ayacucho</option>
           <option value="Pichari">Pichari</option>
           <option value="Kimbiri">Kimbiri</option>
         </select>
-        {errors.localidad && <p className="text-red-500">{errors.localidad.message}</p>}
+        {errors.localidad && <p className="text-red-500 text-xs">{errors.localidad.message}</p>}
       </div>
 
-      <div className="mb-4">
-        <label className="block text-lg md:text-2xl font-extrabold mb-4">Celular</label>
-        <input {...register('celular')} className="w-full p-2 border rounded-lg shadow border-[#0E0D35]" maxLength={9} />
-        {errors.celular && <p className="text-red-500">{errors.celular.message}</p>}
+      {/* Celular */}
+      <div>
+        <label className="block text-sm font-semibold mb-1">Celular</label>
+        <input {...register('celular')} className="w-full p-1 border border-black rounded-md shadow-sm" maxLength={9} />
+        {errors.celular && <p className="text-red-500 text-xs">{errors.celular.message}</p>}
       </div>
 
-      <div className="mb-4">
-        <label className="block text-lg md:text-2xl font-extrabold mb-4">Dirección</label>
-        <input {...register('direccion')} className="w-full p-2 border rounded-lg shadow border-[#0E0D35]" />
-        {errors.direccion && <p className="text-red-500">{errors.direccion.message}</p>}
+      {/* Dirección */}
+      <div className="sm:col-span-2">
+        <label className="block text-sm font-semibold mb-1">Dirección</label>
+        <input {...register('direccion')} className="w-full p-1 border border-black rounded-md shadow-sm" />
+        {errors.direccion && <p className="text-red-500 text-xs">{errors.direccion.message}</p>}
       </div>
 
-      <div className="mb-4">
-        <label className="block text-lg md:text-2xl font-extrabold mb-4">Email</label>
-        <input {...register('email')} className="w-full p-2 border rounded-lg shadow border-[#0E0D35]" />
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+      {/* Email */}
+      <div className="sm:col-span-2">
+        <label className="block text-sm font-semibold mb-1">Email</label>
+        <input {...register('email')} className="w-full p-1 border border-black rounded-md shadow-sm" />
+        {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
       </div>
 
-      <div className="mb-4 md:col-span-2">
-        <label className="block text-lg md:text-2xl font-extrabold mb-4">Asunto</label>
-        <select {...register('asunto')} className="w-full p-2 border rounded-lg shadow border-[#0E0D35]">
-          <option value="Solicitud de Credito">Solicitud de Credito</option>
-          <option value="Informacion de Ahorros">Informacion de Ahorros</option>
+      {/* Asunto */}
+      <div className="sm:col-span-2">
+        <label className="block text-sm font-semibold mb-1">Asunto</label>
+        <select {...register('asunto')} className="w-full p-1 border border-black rounded-md shadow-sm">
+          <option value="Solicitud de Credito">Solicitud de Crédito</option>
+          <option value="Informacion de Ahorros">Información de Ahorros</option>
           <option value="Apertura de Cuenta">Apertura de Cuenta</option>
           <option value="Convocatorias">Convocatorias</option>
-          <option value="Informacion sobre la Cooperativa">Informacion sobre la Cooperativa</option>
+          <option value="Informacion sobre la Cooperativa">Información sobre la Cooperativa</option>
         </select>
-        {errors.asunto && <p className="text-red-500">{errors.asunto.message}</p>}
+        {errors.asunto && <p className="text-red-500 text-xs">{errors.asunto.message}</p>}
       </div>
 
-      <div className="mb-4 md:col-span-2">
-        <label className="block text-lg md:text-2xl font-extrabold mb-4">Archivos Adjuntos</label>
+      {/* Archivos Adjuntos */}
+      <div className="sm:col-span-2">
+        <label className="block text-sm font-semibold mb-1">Archivos Adjuntos</label>
         <input
           type="file"
           multiple
-          className="w-full p-2 border rounded-lg shadow border-[#0E0D35]"
+          className="w-full p-1 border border-black rounded-md shadow-sm"
           onChange={(e) => setValue('archivos_adjunto', Array.from(e.target.files || []))}
         />
-        {errors.archivos_adjunto && <p className="text-red-500">{errors.archivos_adjunto.message}</p>}
+        {errors.archivos_adjunto && <p className="text-red-500 text-xs">{errors.archivos_adjunto.message}</p>}
       </div>
 
-      <div className="mb-4 md:col-span-2">
-        <label className="block text-lg md:text-2xl font-extrabold mb-4">Mensaje</label>
-        <textarea {...register('mensaje_cliente')} className="w-full p-2 border rounded-lg shadow border-[#0E0D35]" rows={10} />
-        {errors.mensaje_cliente && <p className="text-red-500">{errors.mensaje_cliente.message}</p>}
+      {/* Mensaje */}
+      <div className="sm:col-span-2">
+        <label className="block text-sm font-semibold mb-1">Mensaje</label>
+        <textarea {...register('mensaje_cliente')} className="w-full p-1 border border-black rounded-md shadow-sm" rows={3} />
+        {errors.mensaje_cliente && <p className="text-red-500 text-xs">{errors.mensaje_cliente.message}</p>}
       </div>
 
-      <div className="mb-4 md:col-span-2">
-        <input type="checkbox" {...register('aceptar_terminos')} className="mr-2" />
-        <label className="text-base">
-          Al hacer click en el botón usted esta aceptando nuestras políticas de privacidad y política de privacidad
+      {/* Aceptar Términos */}
+      <div className="sm:col-span-2 flex items-center gap-2">
+        <input type="checkbox" {...register('aceptar_terminos')} className="mt-1" />
+        <label className="text-xs">
+          Acepto las <a href="#" className="text-blue-600 underline">políticas de privacidad</a>
         </label>
-        {errors.aceptar_terminos && <p className="text-red-500">{errors.aceptar_terminos.message}</p>}
+        {errors.aceptar_terminos && <p className="text-red-500 text-xs">{errors.aceptar_terminos.message}</p>}
       </div>
 
-      {successMessage && <p className="text-green-500">{successMessage}</p>}
-      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+      {/* Mensajes de éxito/error */}
+      {successMessage && <p className="sm:col-span-2 text-green-500 text-xs">{successMessage}</p>}
+      {errorMessage && <p className="sm:col-span-2 text-red-500 text-xs">{errorMessage}</p>}
 
-      <div className='mb-4 md:col-span-2 flex justify-center'>
+      {/* Botón de envío */}
+      <div className="sm:col-span-2 flex justify-center">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="min-w-max bg-ayllus-primary text-white px-10 py-2 rounded-xl hover:bg-ayllus-secondary disabled:bg-gray-400"
+          className="bg-ayllus-primary text-white px-4 py-1 text-sm rounded-md hover:bg-ayllus-secondary disabled:bg-gray-400"
         >
-          {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
+          {isSubmitting ? 'Enviando...' : 'Enviar'}
         </button>
-
       </div>
-
     </form>
+
   )
 }
 

@@ -1,16 +1,16 @@
 export interface InfoAhorroType {
     id: number;
     documentId: string;
-    tipo_ahorro: string;
     descripcion: string;
     createdAt: Date;
     updatedAt: Date;
     publishedAt: Date;
     slug: string;
     nombre_ahorro: string;
-    imagen_de_la_cabecera: ImagenDeLaCabecera;
+    imagen_de_la_cabecera: ImagenDe;
     contenido: Contenido[];
     grupo_ahorro: GrupoAhorro;
+    imagen_de_contenido: ImagenDe;
 }
 
 export interface Contenido {
@@ -28,7 +28,7 @@ export interface GrupoAhorro {
     publishedAt: Date;
 }
 
-export interface ImagenDeLaCabecera {
+export interface ImagenDe {
     id: number;
     documentId: string;
     name: string;
