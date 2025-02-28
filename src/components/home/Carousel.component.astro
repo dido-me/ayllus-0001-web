@@ -94,17 +94,48 @@ swiper.init()
 </script>
 
 <style>
+  /* Configuración base */
   .swiper {
     width: 100%;
     height: 90vh;
   }
 
-  @media (max-width: 768px) {
+  /* Ajustes para pantallas grandes (más de 1440px) */
+  @media (min-width: 1440px) {
     .swiper {
-      height: 60vh;
+      height: 95vh;
     }
   }
 
+  /* Ajustes para pantallas medianas (tablets y laptops pequeñas) */
+  @media (max-width: 1024px) {
+    .swiper {
+      height: 95vh;
+    }
+  }
+
+  /* Ajustes para tablets en orientación vertical */
+  @media (max-width: 768px) {
+    .swiper {
+      height: 85vh;
+    }
+  }
+
+  /* Ajustes para celulares grandes */
+  @media (max-width: 576px) {
+    .swiper {
+      height: 75vh;
+    }
+  }
+
+  /* Ajustes para celulares pequeños */
+  @media (max-width: 400px) {
+    .swiper {
+      height: 75vh;
+    }
+  }
+
+  /* Ajustes para los elementos dentro del swiper */
   .swiper-slide video,
   .swiper-slide img,
   .swiper-slide a {
@@ -113,6 +144,7 @@ swiper.init()
     object-fit: cover;
   }
 
+  /* Estilo general de las diapositivas */
   .swiper-slide {
     text-align: center;
     font-size: 18px;
