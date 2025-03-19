@@ -248,10 +248,15 @@ const urlShareWhatsapp = `https://wa.me/51${PHONE_NUMBER}?text=Quiero%20saber%20
         </h3>
       </div>
       <p class="text-gray-700 leading-relaxed">
-        Este producto de ahorro está diseñado para brindarte seguridad y
-        rentabilidad, sujeto a los términos y condiciones de nuestra
-        institución. Para más información, contáctanos a nuestro servicio al
-        cliente o visita una de nuestras sucursales.
+        Nuestros productos crediticios están diseños para satisfacer las necesidades de financiamiento de nuestros socios.
+      </p>
+
+      <p class="text-gray-700 leading-relaxed">
+        Toda solicitud de crédito esta sujeta a evaluación de acuerdo a las normas y reglamentos de la cooperativa.
+      </p>
+
+      <p class="text-gray-700 leading-relaxed">
+        Las Tasas de interés y plazos se detallan en nuestro tarifario vigente.
       </p>
 
       <!-- Contact CTA -->
@@ -266,24 +271,30 @@ const urlShareWhatsapp = `https://wa.me/51${PHONE_NUMBER}?text=Quiero%20saber%20
             Nuestros asesores están listos para ayudarte
           </p>
         </div>
-        <a
-          href={urlShareWhatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mt-4 sm:mt-0 inline-flex items-center justify-center px-6 py-3 bg-ayllus-secondary text-white font-medium rounded-lg shadow-md hover:bg-ayllus-secondary/90 transition-colors duration-300"
-        >
-          Contactar ahora
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 ml-2"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+        <div class="flex gap-8 items-center">
+          <p class="text-ayllus-primary font-bold text-xl mt-4 sm:mt-0">
+            {PHONE_NUMBER}
+          </p>
+
+          <a
+            href={urlShareWhatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-4 sm:mt-0 inline-flex items-center justify-center px-6 py-3 bg-ayllus-secondary text-white font-extrabold rounded-lg shadow-md hover:bg-ayllus-secondary/90 transition-colors duration-300 text-lg"
           >
-            <path
-              d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
-            ></path>
-          </svg>
-        </a>
+            Contactar ahora
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 ml-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
+              ></path>
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
 

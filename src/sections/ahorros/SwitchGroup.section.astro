@@ -13,10 +13,10 @@ const data = await fetchApi<AhorrosGroupType[]>({
 })
 
 const titlesForPage = {
-  tituloNaranja: 'Tu dinero crece contigo',
-  tituloNegro: 'Ahorros Flexibles y Seguros',
+  tituloNaranja: '',
+  tituloNegro: 'Todos tus ahorros esta converturados por el fondo de Seguro de Depósito Cooperativo (FDSC)',
   tituloMorado:
-    ' Elige entre ahorro libre o plazo fijo y construye un futuro sólido con nuestras opciones personalizadas.'
+    ''
 };
 ---
 
@@ -38,7 +38,7 @@ const titlesForPage = {
       data.map((item, index) => (
         <li class="mr-2" role="presentation">
           <button
-            class={`inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300 ${index === 0 ? 'active' : ''}`}
+            class={`inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-3xl font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300 ${index === 0 ? 'active' : ''}`}
             id={`dashboard-${item.id}-tab`}
             data-tabs-target={`#dashboard-${item.id}`}
             type="button"
@@ -73,19 +73,15 @@ const titlesForPage = {
                 class="flex flex-col gap-3 text-ayllus-primary shadow-md rounded-lg px-5 py-4 bg-slate-100 hover:bg-ayllus-primary hover:text-white group h-full"
                 aria-label={`Ver detalles de ${item.nombre_ahorro}`}
               >
-                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-white/60 group-hover:bg-white/20 transition-colors duration-300">
-                  <Icon
-                    className="w-8 h-8"
-                    name={'clarity:savings-solid'}
-                  />
+                <div class="flex gap-6 text-ayllus-secondary group-hover:text-white items-center">
+                  <Icon className="w-8 h-8" name={'clarity:savings-solid'} />
+                  <h2 class="font-bold text-xl">{item.nombre_ahorro}</h2>
                 </div>
-
-                <h2 class="font-medium text-lg">{item.nombre_ahorro}</h2>
 
                 {item.descripcion && (
                   <div class="flex flex-col flex-grow">
                     <p
-                      class="text-sm opacity-90 group-hover:text-white/90 line-clamp-3 mb-2"
+                      class="text-lg opacity-90 group-hover:text-white/90 line-clamp-3 mb-2"
                       title={
                         item.descripcion.length > 130
                           ? item.descripcion

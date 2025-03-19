@@ -13,121 +13,103 @@ const data = await fetchApi<NuestroServiciosType>({
 })
 
 const dataNuestroServicio = data.Contenido[0]
-
 ---
 
-<div class="max-w-screen-xl mx-auto px-4 my-14 relative">
-  <h1
-    class="text-3xl sm:text-4xl font-extrabold text-center mb-16 sm:mb-24 text-ayllus-title"
-  >
+<div class="max-w-screen-xl mx-auto px-4 py-16 md:py-24 relative">
+  <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-16 md:mb-24 text-ayllus-title">
     Nuestros Servicios
   </h1>
 
-  <div class="flex flex-col sm:flex-row gap-10">
-    <div
-      class="w-full bg-purple-50 rounded-lg shadow-lg p-6 flex flex-col justify-center items-center"
-    >
-      <div class="w-max">
-        <h2
-          class="font-extrabold text-ayllus-primary mb-4 text-center text-2xl sm:text-3xl sm:text-start"
-        >
+  <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+    <!-- Servicio: Créditos -->
+    <div class="bg-purple-50 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
+      <div class="p-6 md:p-8">
+        <h2 class="font-extrabold text-ayllus-primary text-3xl md:text-4xl mb-8 text-center ">
           Créditos
         </h2>
 
-        <div class="flex flex-col sm:flex-row sm:gap-6">
-          <div class="flex items-center justify-center mb-4">
+        <div class="space-y-8 md:space-y-12">
+          <div class="relative aspect-video w-full overflow-hidden rounded-xl">
             <img
               src={dataNuestroServicio.credito_imagen.url}
               alt="Imagen de créditos - Ayllus Peru"
-              class="w-full max-w-[221px] h-auto rounded-xl object-contain"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             />
           </div>
-          <div class="flex flex-col gap-8 sm:justify-center sm:items-start">
-            <ul class="space-y-2 text-purple-700">
-              <li
-                class="flex items-center space-x-2 font-medium text-ayllus-title"
-              >
-                <Icon name="store" className="text-ayllus-secondary" />
+
+          <div class="space-y-6">
+            <ul class="space-y-4 text-purple-700">
+              <li class="flex items-center gap-3 font-medium text-ayllus-title hover:translate-x-2 transition-transform">
+                <Icon name="store" className="text-ayllus-secondary text-xl" />
                 <span>Créditos para Negocios</span>
               </li>
-              <li
-                class="flex items-center space-x-2 font-medium text-ayllus-title"
-              >
-                <Icon name="bill" className="text-ayllus-secondary" />
+              <li class="flex items-center gap-3 font-medium text-ayllus-title hover:translate-x-2 transition-transform">
+                <Icon name="bill" className="text-ayllus-secondary text-xl" />
                 <span>Créditos de Consumo</span>
               </li>
-              <li
-                class="flex items-center space-x-2 font-medium text-ayllus-title"
-              >
-                <Icon name="write-pencil" className="text-ayllus-secondary" />
+              <li class="flex items-center gap-3 font-medium text-ayllus-title hover:translate-x-2 transition-transform">
+                <Icon name="write-pencil" className="text-ayllus-secondary text-xl" />
                 <span>Bancos Comunales</span>
               </li>
             </ul>
-            <a
-              href="creditos"
-              class="bg-purple-700 w-max mx-auto sm:mx-0 text-white font-extrabold rounded-xl hover:bg-purple-800 transition px-6 py-4"
-            >
-              Ver más
-            </a>
+
+            <div class="flex justify-center md:justify-start">
+              <a
+                href="creditos"
+                class="inline-block bg-purple-700 text-white font-extrabold rounded-xl hover:bg-purple-800 hover:scale-105 transition-all duration-300 px-8 py-4"
+              >
+                Ver más
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div
-      class="w-full bg-purple-50 rounded-lg shadow-lg p-6 flex flex-col justify-center items-center"
-    >
-      <div class="w-max">
-        <h2
-          class="font-extrabold text-ayllus-primary mb-4 text-center text-2xl sm:text-3xl sm:text-start"
-        >
+    <!-- Servicio: Ahorros -->
+    <div class="bg-purple-50 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
+      <div class="p-6 md:p-8">
+        <h2 class="font-extrabold text-ayllus-primary text-3xl md:text-4xl mb-8 text-center ">
           Ahorros
         </h2>
 
-        <div class="flex flex-col sm:flex-row sm:gap-6">
-          <div class="flex items-center justify-center mb-4">
+        <div class="space-y-8 md:space-y-12">
+          <div class="relative aspect-video w-full overflow-hidden rounded-xl">
             <img
               src={dataNuestroServicio.ahorros_imagen.url}
-              alt="Imagen de créditos - Ayllus Peru"
-              class="w-full max-w-[221px] h-auto rounded-xl object-contain"
+              alt="Imagen de ahorros - Ayllus Peru"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             />
           </div>
-          <div class="flex flex-col gap-8 sm:justify-center sm:items-start">
-            <ul class="space-y-2 text-purple-700">
-              <li
-                class="flex items-center space-x-2 font-medium text-ayllus-title"
-              >
-                <Icon name="savings-line" className="text-ayllus-secondary" />
+
+          <div class="space-y-6">
+            <ul class="space-y-4 text-purple-700">
+              <li class="flex items-center gap-3 font-medium text-ayllus-title hover:translate-x-2 transition-transform">
+                <Icon name="savings-line" className="text-ayllus-secondary text-xl" />
                 <span>Ahorro Libre</span>
               </li>
-              <li
-                class="flex items-center space-x-2 font-medium text-ayllus-title"
-              >
-                <Icon name="money-bills" className="text-ayllus-secondary" />
+              <li class="flex items-center gap-3 font-medium text-ayllus-title hover:translate-x-2 transition-transform">
+                <Icon name="money-bills" className="text-ayllus-secondary text-xl" />
                 <span>Plazo Fijo</span>
               </li>
-              <li
-                class="flex items-center space-x-2 font-medium text-ayllus-title"
-              >
-                <Icon name="credit-card" className="text-ayllus-secondary" />
+              <li class="flex items-center gap-3 font-medium text-ayllus-title hover:translate-x-2 transition-transform">
+                <Icon name="credit-card" className="text-ayllus-secondary text-xl" />
                 <span>Ahorro Programado</span>
               </li>
-              <li
-                class="flex items-center space-x-2 font-medium text-ayllus-title"
-              >
-                <Icon
-                  name="fa6-solid:children"
-                  className="text-ayllus-secondary"
-                />
+              <li class="flex items-center gap-3 font-medium text-ayllus-title hover:translate-x-2 transition-transform">
+                <Icon name="fa6-solid:children" className="text-ayllus-secondary text-xl" />
                 <span>Cuenta Wawakuna</span>
               </li>
             </ul>
-            <a
-              href="/ahorros"
-              class="bg-purple-700 w-max mx-auto sm:mx-0 text-white font-extrabold rounded-xl hover:bg-purple-800 transition px-6 py-4"
-            >
-              Ver más
-            </a>
+
+            <div class="flex justify-center md:justify-start">
+              <a
+                href="/ahorros"
+                class="inline-block bg-purple-700 text-white font-extrabold rounded-xl hover:bg-purple-800 hover:scale-105 transition-all duration-300 px-8 py-4"
+              >
+                Ver más
+              </a>
+            </div>
           </div>
         </div>
       </div>
