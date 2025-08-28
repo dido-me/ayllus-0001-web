@@ -1,0 +1,209 @@
+---
+import Layout from '../layouts/Layout.maintenance.astro'
+---
+
+<Layout title="En Mantenimiento">
+	<main class="maintenance-container">
+		<div class="maintenance-card">
+			<div class="logo-container">
+				<img src="/logo/logo.png" alt="Ayllus Peru" class="logo" />
+			</div>
+
+			<div class="content">
+				<h1 class="title">Sitio en Mantenimiento</h1>
+				<p class="subtitle">
+					Estamos trabajando para mejorar tu experiencia
+				</p>
+
+				<div class="message">
+					<p>
+						Nuestro sitio web se encuentra temporalmente en mantenimiento para brindarte un mejor servicio.
+					</p>
+					<p>
+						Volveremos muy pronto con nuevas mejoras y funcionalidades.
+					</p>
+				</div>
+
+				<div class="contact-info">
+					<h3>¿Necesitas ayuda urgente?</h3>
+					<p>Contáctanos a través de:</p>
+					<div class="contact-methods">
+						<div class="contact-item">
+							<span class="icon">🏢</span>
+							<span>Oficina Principal: Consulta nuestras redes sociales</span>
+						</div>
+						<div class="contact-item">
+							<span class="icon">📧</span>
+							<span>Email: info@ayllusperu.com</span>
+						</div>
+						<div class="contact-item">
+							<span class="icon">📱</span>
+							<span>Síguenos en nuestras redes sociales</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="progress-bar">
+					<div class="progress-fill"></div>
+				</div>
+
+				<p class="eta">Estimamos estar de vuelta pronto</p>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.maintenance-container {
+		width: 100%;
+		max-width: 600px;
+		padding: 2rem;
+	}
+
+	.maintenance-card {
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(10px);
+		border-radius: 20px;
+		padding: 3rem 2rem;
+		text-align: center;
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.3);
+	}
+
+	.logo-container {
+		margin-bottom: 2rem;
+	}
+
+	.logo {
+		height: 80px;
+		width: auto;
+		object-fit: contain;
+	}
+
+	.title {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-bottom: 1rem;
+		color: #0E0D35;
+		line-height: 1.2;
+	}
+
+	.subtitle {
+		font-size: 1.2rem;
+		color: #6b7280;
+		margin-bottom: 2rem;
+		font-weight: 500;
+	}
+
+	.message {
+		margin-bottom: 2.5rem;
+		line-height: 1.6;
+	}
+
+	.message p {
+		margin-bottom: 1rem;
+		color: #4b5563;
+		font-size: 1rem;
+	}
+
+	.contact-info {
+		background: #f8fafc;
+		border-radius: 12px;
+		padding: 1.5rem;
+		margin-bottom: 2rem;
+		border-left: 4px solid #667eea;
+	}
+
+	.contact-info h3 {
+		margin: 0 0 1rem 0;
+		color: #0E0D35;
+		font-size: 1.1rem;
+		font-weight: 600;
+	}
+
+	.contact-info > p {
+		margin: 0 0 1rem 0;
+		color: #6b7280;
+		font-size: 0.9rem;
+	}
+
+	.contact-methods {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.contact-item {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.9rem;
+		color: #4b5563;
+	}
+
+	.icon {
+		font-size: 1.1rem;
+	}
+
+	.progress-bar {
+		width: 100%;
+		height: 8px;
+		background: #e5e7eb;
+		border-radius: 4px;
+		overflow: hidden;
+		margin-bottom: 1rem;
+	}
+
+	.progress-fill {
+		height: 100%;
+		background: linear-gradient(90deg, #667eea, #764ba2);
+		width: 65%;
+		border-radius: 4px;
+		animation: pulse 2s ease-in-out infinite;
+	}
+
+	.eta {
+		color: #6b7280;
+		font-size: 0.9rem;
+		margin: 0;
+		font-style: italic;
+	}
+
+	@keyframes pulse {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.7; }
+	}
+
+	/* Responsive */
+	@media (max-width: 768px) {
+		.maintenance-container {
+			padding: 1rem;
+		}
+
+		.maintenance-card {
+			padding: 2rem 1.5rem;
+		}
+
+		.title {
+			font-size: 2rem;
+		}
+
+		.subtitle {
+			font-size: 1rem;
+		}
+
+		.logo {
+			height: 60px;
+		}
+
+		.contact-methods {
+			gap: 0.75rem;
+		}
+
+		.contact-item {
+			flex-direction: column;
+			text-align: center;
+			gap: 0.25rem;
+		}
+	}
+</style>
