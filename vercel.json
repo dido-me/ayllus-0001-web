@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "src/pages/**/*.astro": {
-      "memory": 1024
-    }
-  }
-}
