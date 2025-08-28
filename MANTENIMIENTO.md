@@ -34,18 +34,30 @@ Se ha implementado un sistema de mantenimiento que redirige todas las páginas d
 ## Cómo usar:
 
 ### Para ACTIVAR el modo mantenimiento:
+**En desarrollo local:**
 Editar `.env` y establecer:
 ```bash
 MAINTENANCE_MODE=true
 ```
 
+**En producción (Vercel):**
+1. Ve al dashboard de Vercel → Settings → Environment Variables
+2. Agrega: `MAINTENANCE_MODE` = `true`
+3. Redeploy la aplicación
+
 ### Para DESACTIVAR el modo mantenimiento:
+**En desarrollo local:**
 Editar `.env` y establecer:
 ```bash
 MAINTENANCE_MODE=false
 ```
 
-**Nota:** El servidor se reinicia automáticamente al cambiar el archivo `.env`.
+**En producción (Vercel):**
+1. Ve al dashboard de Vercel → Settings → Environment Variables
+2. Cambia: `MAINTENANCE_MODE` = `false`
+3. Redeploy la aplicación
+
+**Nota:** El servidor se reinicia automáticamente al cambiar el archivo `.env` en desarrollo.
 
 ### Para personalizar la página de mantenimiento:
 Editar `src/pages/mantenimiento.astro` para modificar:
