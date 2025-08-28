@@ -2,7 +2,7 @@ import { defineMiddleware } from 'astro:middleware'
 
 export const onRequest = defineMiddleware(async (context, next) => {
   // Verificar el modo mantenimiento en tiempo de ejecución para Vercel
-  const maintenanceMode = import.meta.env.MAINTENANCE_MODE === 'true'
+  const maintenanceMode = true
 
   // Si el modo mantenimiento está desactivado, continuar normalmente
   if (!maintenanceMode) {
